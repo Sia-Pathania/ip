@@ -28,7 +28,7 @@ public class Sage {
         System.out.println("What can I do for you?");
         System.out.println(divider);
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         try (Scanner scanner = new Scanner(System.in)) {
@@ -48,17 +48,17 @@ public class Sage {
                 } else if (command.startsWith("mark ")) {
                     int taskNumber = Integer.parseInt(command.substring(5));
                     int taskIndex = taskNumber - 1;
-                    tasks[taskIndex] = "[X] " + tasks[taskIndex].substring(4);
+                    tasks[taskIndex].markAsDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tasks[taskIndex]);
                 } else if (command.startsWith("unmark ")) {
                     int taskNumber = Integer.parseInt(command.substring(7));
                     int taskIndex = taskNumber - 1;
-                    tasks[taskIndex] = "[ ] " + tasks[taskIndex].substring(4);
+                    tasks[taskIndex].markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks[taskIndex]);
                 } else {
-                    tasks[taskCount] = "[ ] " + command;
+                    tasks[taskCount] = new Task(command);
                     taskCount++;
                     System.out.println("added: " + command);
                 }
