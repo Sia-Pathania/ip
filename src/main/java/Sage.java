@@ -5,8 +5,8 @@ import java.util.Scanner;
  */
 public class Sage {
     /**
-     * Displays Sage's greeting, echoes each command, and ends the chat when the
-     * user enters {@code bye}.
+     * Displays Sage's greeting, stores tasks entered by the user, lists them on
+     * request, and ends the chat when the user enters {@code bye}.
      *
      * @param args command-line arguments (not used)
      */
@@ -27,17 +27,29 @@ public class Sage {
         System.out.println("What can I do for you?");
         System.out.println(divider);
 
+        String[] tasks = new String[100];
+        int taskCount = 0;
+
         try (Scanner scanner = new Scanner(System.in)) {
             while (scanner.hasNextLine()) {
                 String command = scanner.nextLine();
-                System.out.println(command);
                 System.out.println(divider);
 
                 if (command.equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println(divider);
                     break;
+                } else if (command.equals("list")) {
+                    for (int index = 0; index < taskCount; index++) {
+                        System.out.println((index + 1) + ". " + tasks[index]);
+                    }
+                } else {
+                    tasks[taskCount] = command;
+                    taskCount++;
+                    System.out.println("added: " + command);
                 }
+
+                System.out.println(divider);
             }
         }
     }
