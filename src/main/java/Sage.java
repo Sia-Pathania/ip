@@ -5,8 +5,8 @@ import java.util.Scanner;
  */
 public class Sage {
     /**
-     * Displays Sage's greeting, stores tasks entered by the user, lists them on
-     * request, and ends the chat when the user enters {@code bye}.
+     * Displays Sage's greeting, stores tasks entered by the user, lists and marks
+     * them on request, and ends the chat when the user enters {@code bye}.
      *
      * @param args command-line arguments (not used)
      */
@@ -40,11 +40,18 @@ public class Sage {
                     System.out.println(divider);
                     break;
                 } else if (command.equals("list")) {
+                    System.out.println("Here are the tasks in your list:");
                     for (int index = 0; index < taskCount; index++) {
-                        System.out.println((index + 1) + ". " + tasks[index]);
+                        System.out.println((index + 1) + "." + tasks[index]);
                     }
+                } else if (command.startsWith("mark ")) {
+                    int taskNumber = Integer.parseInt(command.substring(5));
+                    int taskIndex = taskNumber - 1;
+                    tasks[taskIndex] = "[X] " + tasks[taskIndex].substring(4);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " + tasks[taskIndex]);
                 } else {
-                    tasks[taskCount] = command;
+                    tasks[taskCount] = "[ ] " + command;
                     taskCount++;
                     System.out.println("added: " + command);
                 }
