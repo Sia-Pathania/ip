@@ -31,6 +31,8 @@ public class Sage {
         Task[] tasks = new Task[100];
         int taskCount = 0;
 
+
+
         try (Scanner scanner = new Scanner(System.in)) {
             while (scanner.hasNextLine()) {
                 String command = scanner.nextLine();
@@ -59,19 +61,30 @@ public class Sage {
                     System.out.println("  " + tasks[taskIndex]);
                 } else if (command.startsWith("deadline ")) {
                     String deadlineDetails = command.substring(9);
+
                     int byIndex = deadlineDetails.indexOf(" /by ");
                     String description = deadlineDetails.substring(0, byIndex);
                     String by = deadlineDetails.substring(byIndex + 5);
-                    tasks[taskCount] = new Task(description, by);
+                    tasks[taskCount] = new Deadline(description, by);
                     taskCount++;
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + tasks[taskCount - 1]);
+                    if (taskCount == 1) {
+                        System.out.println("Now you have 1 task in the list.");
+                    } else {
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    }
                 } else if (command.startsWith("todo ")) {
                     String description = command.substring(5);
-                    tasks[taskCount] = new Task(description);
+                    tasks[taskCount] = new Todo(description);
                     taskCount++;
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + tasks[taskCount - 1]);
+                    if (taskCount == 1) {
+                        System.out.println("Now you have 1 task in the list.");
+                    } else {
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    }
                 } else if (command.startsWith("event ")) {
                     String eventDetails = command.substring(6);
 
@@ -82,12 +95,16 @@ public class Sage {
                     String from = eventDetails.substring(fromIndex + 7, toIndex);
                     String to = eventDetails.substring(toIndex + 5);
 
-                    tasks[taskCount] = new Task(description, from, to);
+                    tasks[taskCount] = new Event(description, from, to);
                     taskCount++;
 
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + tasks[taskCount - 1]);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    if (taskCount == 1) {
+                        System.out.println("Now you have 1 task in the list.");
+                    } else {
+                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    }
                 } else {
                     tasks[taskCount] = new Task(command);
                     taskCount++;
