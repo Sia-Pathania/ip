@@ -94,30 +94,40 @@ public class Sage {
                             );
                         }
 
-                    } else if (command.startsWith("deadline ")) {
-                        String deadlineDetails = command.substring(9);
+                    } else if (command.equals("deadline") || command.startsWith("deadline ")) {
+                        String deadlineDetails = command.length() > 8
+                                ? command.substring(9)
+                                : "";
 
                         int byIndex = deadlineDetails.indexOf(" /by ");
+
+                        if (byIndex == -1) {
+                            throw new SageException(
+                                    "Your deadline is missing a /by date or time. Could you try again?"
+                            );
+                        }
+
                         String description = deadlineDetails.substring(0, byIndex);
+
+                        if (description.isBlank()) {
+                            throw new SageException(
+                                    "Your deadline needs a description. What would you like to add?"
+                            );
+                        }
+
                         String by = deadlineDetails.substring(byIndex + 5);
+
+                        if (by.isBlank()) {
+                            throw new SageException(
+                                    "Your deadline needs a date or time after /by. Could you try again?"
+                            );
+                        }
 
                         tasks[taskCount] = new Deadline(description, by);
                         taskCount++;
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks[taskCount - 1]);
-
-                        if (taskCount == 1) {
-                            System.out.println("Now you have 1 task in the list.");
-                        } else {
-                            System.out.println("Now you have " + taskCount + " tasks in the list.");
-                        }
-
-                    } else if (command.equals("todo")) {
-                        throw new SageException(
-                                "Your todo needs a description. Could you tell me what you would like me to add?"
-                        );
-
                     } else if (command.startsWith("todo ")) {
                         String description = command.substring(5);
 
