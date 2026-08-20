@@ -128,8 +128,16 @@ public class Sage {
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks[taskCount - 1]);
-                    } else if (command.startsWith("todo ")) {
-                        String description = command.substring(5);
+                    } else if (command.equals("todo") || command.startsWith("todo ")) {
+                        String description = command.length() > 4
+                                ? command.substring(5).trim()
+                                : "";
+
+                        if (description.isBlank()) {
+                            throw new SageException(
+                                    "Your todo needs a description. What would you like to add?"
+                            );
+                        }
 
                         tasks[taskCount] = new Todo(description);
                         taskCount++;
@@ -142,8 +150,7 @@ public class Sage {
                         } else {
                             System.out.println("Now you have " + taskCount + " tasks in the list.");
                         }
-
-                    } else if (command.equals("event") || command.startsWith("event ")) {
+                    }else if (command.equals("event") || command.startsWith("event ")) {
                         String eventDetails = command.length() > 5
                                 ? command.substring(6)
                                 : "";
