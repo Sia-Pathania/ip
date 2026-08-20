@@ -43,10 +43,10 @@ public class Task {
     /**
      * Returns this task in the format displayed in Sage's task list.
      *
-     * @return the status icon followed by the description
+     * @return this todo's type and status icons followed by its description
      */
     @Override
     public String toString() {
-        return  "[" + getStatusIcon() + "] " + description;
+        return "[T][" + getStatusIcon() + "] " + description;
     }
 }
