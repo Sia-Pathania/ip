@@ -208,6 +208,14 @@ public class Sage {
                         int taskNumber = Integer.parseInt(command.substring(7));
                         int taskIndex = taskNumber - 1;
 
+                        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+                            throw new SageException(
+                                    "I couldn't find task " + taskNumber
+                                            + ". Please choose a task number from your list."
+                            );
+                        }
+
+
                         Task deletedTask = tasks.remove(taskIndex);
 
                         System.out.println("Noted. I've removed this task:");
