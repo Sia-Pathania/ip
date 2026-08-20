@@ -57,6 +57,15 @@ public class Sage {
                     tasks[taskIndex].markAsNotDone();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks[taskIndex]);
+                } else if (command.startsWith("deadline ")) {
+                    String deadlineDetails = command.substring(9);
+                    int byIndex = deadlineDetails.indexOf(" /by ");
+                    String description = deadlineDetails.substring(0, byIndex);
+                    String by = deadlineDetails.substring(byIndex + 5);
+                    tasks[taskCount] = new Task(description, by);
+                    taskCount++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCount - 1]);
                 } else if (command.startsWith("todo ")) {
                     String description = command.substring(5);
                     tasks[taskCount] = new Task(description);
