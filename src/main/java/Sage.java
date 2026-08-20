@@ -204,6 +204,15 @@ public class Sage {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
 
+                    } else if (command.startsWith("delete ")) {
+                        int taskNumber = Integer.parseInt(command.substring(7));
+                        int taskIndex = taskNumber - 1;
+
+                        Task deletedTask = tasks.remove(taskIndex);
+
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + deletedTask);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     } else {
                         throw new SageException(
                                 "I didn't quite catch that. You can add a todo, deadline, or event whenever you're ready. Could you try again?"
