@@ -175,6 +175,18 @@ public class Sage {
                         String from = eventDetails.substring(fromIndex + 7, toIndex);
                         String to = eventDetails.substring(toIndex + 5);
 
+                        if (from.isBlank()) {
+                            throw new SageException(
+                                    "Your event needs a start time after /from. Could you try again?"
+                            );
+                        }
+
+                        if (to.isBlank()) {
+                            throw new SageException(
+                                    "Your event needs an end time after /to. Could you try again?"
+                            );
+                        }
+
                         tasks[taskCount] = new Event(description, from, to);
                         taskCount++;
 
