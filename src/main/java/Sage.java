@@ -170,7 +170,7 @@ public class Sage {
                             );
                         }
 
-                        String description = eventDetails.substring(0, fromIndex);
+                    String description = eventDetails.substring(0, fromIndex).trim();
 
                         if (description.isBlank()) {
                             throw new SageException(
