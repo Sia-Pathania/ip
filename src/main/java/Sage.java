@@ -50,11 +50,27 @@ public class Sage {
                         }
 
                     } else if (command.startsWith("mark ")) {
-                        int taskNumber = Integer.parseInt(command.substring(5));
-                        int taskIndex = taskNumber - 1;
-                        tasks[taskIndex].markAsDone();
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("  " + tasks[taskIndex]);
+                        String taskNumberText = command.substring(5);
+
+                        try {
+                            int taskNumber = Integer.parseInt(taskNumberText);
+                            int taskIndex = taskNumber - 1;
+
+                            if (taskIndex < 0 || taskIndex >= taskCount) {
+                                throw new SageException(
+                                        "I couldn't find task " + taskNumber
+                                                + ". Please choose a task number from your list."
+                                );
+                            }
+
+                            tasks[taskIndex].markAsDone();
+                            System.out.println("Nice! I've marked this task as done:");
+                            System.out.println("  " + tasks[taskIndex]);
+                        } catch (NumberFormatException e) {
+                            throw new SageException(
+                                    "The task number should be a number, like `mark 2`."
+                            );
+                        }
 
                     } else if (command.startsWith("unmark ")) {
                         int taskNumber = Integer.parseInt(command.substring(7));
@@ -125,9 +141,9 @@ public class Sage {
                         }
 
                     } else {
-                        tasks[taskCount] = new Task(command);
-                        taskCount++;
-                        System.out.println("added: " + command);
+                        throw new SageException(
+                                "I didn't quite catch that. You can add a todo, deadline, or event whenever you're ready. Could you try again?"
+                        );
                     }
 
                 } catch (SageException e) {
