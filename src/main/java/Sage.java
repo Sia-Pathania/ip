@@ -72,6 +72,22 @@ public class Sage {
                     taskCount++;
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + tasks[taskCount - 1]);
+                } else if (command.startsWith("event ")) {
+                    String eventDetails = command.substring(6);
+
+                    int fromIndex = eventDetails.indexOf(" /from ");
+                    int toIndex = eventDetails.indexOf(" /to ");
+
+                    String description = eventDetails.substring(0, fromIndex);
+                    String from = eventDetails.substring(fromIndex + 7, toIndex);
+                    String to = eventDetails.substring(toIndex + 5);
+
+                    tasks[taskCount] = new Task(description, from, to);
+                    taskCount++;
+
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCount - 1]);
+                    System.out.println("Now you have " + taskCount + " tasks in the list.");
                 } else {
                     tasks[taskCount] = new Task(command);
                     taskCount++;
