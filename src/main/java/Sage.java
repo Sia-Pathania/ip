@@ -164,6 +164,14 @@ public class Sage {
                         }
 
                         String description = eventDetails.substring(0, fromIndex);
+
+                        if (description.isBlank()) {
+                            throw new SageException(
+                                    "Your event needs a description. What would you like to add?"
+                            );
+                        }
+
+
                         String from = eventDetails.substring(fromIndex + 7, toIndex);
                         String to = eventDetails.substring(toIndex + 5);
 
