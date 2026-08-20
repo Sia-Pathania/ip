@@ -148,8 +148,8 @@ public class Sage {
                                 ? command.substring(6)
                                 : "";
 
-                        int fromIndex = eventDetails.indexOf(" /from ");
-                        int toIndex = eventDetails.indexOf(" /to ");
+                        int fromIndex = eventDetails.indexOf("/from ");
+                        int toIndex = eventDetails.indexOf("/to ");
 
                         if (fromIndex == -1) {
                             throw new SageException(
@@ -172,8 +172,9 @@ public class Sage {
                         }
 
 
-                        String from = eventDetails.substring(fromIndex + 7, toIndex);
-                        String to = eventDetails.substring(toIndex + 5);
+                        String from = eventDetails.substring(fromIndex + 6, toIndex).trim();
+                        String to = eventDetails.substring(toIndex + 4).trim();
+
 
                         if (from.isBlank()) {
                             throw new SageException(
