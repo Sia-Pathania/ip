@@ -3,10 +3,6 @@
  */
 public class Task {
     private final String description;
-    //private final String type;
-    //private final String by;
-   // private final String from;
-   // private final String to;
     private boolean isDone;
 
     /**
@@ -19,46 +15,6 @@ public class Task {
         this.isDone = false;
     }
 
-//
-//    public Task(String description) {
-//        this.description = description;
-//        this.type = "T";
-//        this.by = null;
-//        this.from = null;
-//        this.to = null;
-//        this.isDone = false;
-//    }
-
-    /**
-     * Creates a deadline task that is initially not done.
-     *
-     * @param description the task description
-     * @param by the deadline text supplied by the user
-     */
-//    public Task(String description, String by) {
-//        this.description = description;
-//        this.type = "D";
-//        this.by = by;
-//        this.from = null;
-//        this.to = null;
-//        this.isDone = false;
-//    }
-
-    /**
-     * Creates an event task that is initially not done.
-     *
-     * @param description the task description
-     * @param from the event start text supplied by the user
-     * @param to the event end text supplied by the user
-     */
-//    public Task(String description, String from, String to) {
-//        this.description = description;
-//        this.type = "E";
-//        this.by = null;
-//        this.from = from;
-//        this.to = to;
-//        this.isDone = false;
-//    }
 
     /**
      * Marks this task as done.
@@ -95,13 +51,5 @@ public class Task {
             return "[" + getStatusIcon() + "] " + description;
         }
 
-//        String task = "[" + type + "][" + getStatusIcon() + "] " + description;
-//        if (by != null) {
-//            return task + " (by: " + by + ")";
-//        }
-//        if (from != null) {
-//            return task + " (from: " + from + " to: " + to + ")";
-//        }
-//        return task;
 }
 
