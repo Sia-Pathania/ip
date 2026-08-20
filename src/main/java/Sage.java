@@ -143,11 +143,25 @@ public class Sage {
                             System.out.println("Now you have " + taskCount + " tasks in the list.");
                         }
 
-                    } else if (command.startsWith("event ")) {
-                        String eventDetails = command.substring(6);
+                    } else if (command.equals("event") || command.startsWith("event ")) {
+                        String eventDetails = command.length() > 5
+                                ? command.substring(6)
+                                : "";
 
                         int fromIndex = eventDetails.indexOf(" /from ");
                         int toIndex = eventDetails.indexOf(" /to ");
+
+                        if (fromIndex == -1) {
+                            throw new SageException(
+                                    "Your event is missing a /from start time. Could you try again?"
+                            );
+                        }
+
+                        if (toIndex == -1) {
+                            throw new SageException(
+                                    "Your event is missing a /to end time. Could you try again?"
+                            );
+                        }
 
                         String description = eventDetails.substring(0, fromIndex);
                         String from = eventDetails.substring(fromIndex + 7, toIndex);
