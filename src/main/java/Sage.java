@@ -73,11 +73,26 @@ public class Sage {
                         }
 
                     } else if (command.startsWith("unmark ")) {
-                        int taskNumber = Integer.parseInt(command.substring(7));
-                        int taskIndex = taskNumber - 1;
-                        tasks[taskIndex].markAsNotDone();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("  " + tasks[taskIndex]);
+                        String taskNumberText = command.substring(7);
+
+                        try {
+                            int taskNumber = Integer.parseInt(taskNumberText);
+                            int taskIndex = taskNumber - 1;
+
+                            if (taskIndex < 0 || taskIndex >= taskCount) {
+                                throw new SageException(
+                                        "I couldn't find task " + taskNumber
+                                                + ". Please choose a task number from your list."
+                                );
+                            }
+                            tasks[taskIndex].markAsNotDone();
+                            System.out.println("OK, I've marked this task as not done yet:");
+                            System.out.println("  " + tasks[taskIndex]);
+                        } catch (NumberFormatException e) {
+                            throw new SageException(
+                                    "The task number should be a number, like `unmark 2`."
+                            );
+                        }
 
                     } else if (command.startsWith("deadline ")) {
                         String deadlineDetails = command.substring(9);
