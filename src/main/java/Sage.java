@@ -45,8 +45,8 @@ public class Sage {
 
                     } else if (command.equals("list")) {
                         System.out.println("Here are the tasks in your list:");
-                        for (int index = 0; index < taskCount; index++) {
-                            System.out.println((index + 1) + "." + tasks[index]);
+                        for (int index = 0; index < tasks.size(); index++) {
+                            System.out.println((index + 1) + "." + tasks.get(index));
                         }
 
                     } else if (command.startsWith("mark ")) {
@@ -56,16 +56,16 @@ public class Sage {
                             int taskNumber = Integer.parseInt(taskNumberText);
                             int taskIndex = taskNumber - 1;
 
-                            if (taskIndex < 0 || taskIndex >= taskCount) {
+                            if (taskIndex < 0 || taskIndex >= tasks.size()) {
                                 throw new SageException(
                                         "I couldn't find task " + taskNumber
                                                 + ". Please choose a task number from your list."
                                 );
                             }
 
-                            tasks[taskIndex].markAsDone();
+                            tasks.get(taskIndex).markAsDone();
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println("  " + tasks[taskIndex]);
+                            System.out.println("  " + tasks.get(taskIndex));
                         } catch (NumberFormatException e) {
                             throw new SageException(
                                     "The task number should be a number, like `mark 2`."
@@ -79,15 +79,15 @@ public class Sage {
                             int taskNumber = Integer.parseInt(taskNumberText);
                             int taskIndex = taskNumber - 1;
 
-                            if (taskIndex < 0 || taskIndex >= taskCount) {
+                            if (taskIndex < 0 || taskIndex >= tasks.size()) {
                                 throw new SageException(
                                         "I couldn't find task " + taskNumber
                                                 + ". Please choose a task number from your list."
                                 );
                             }
-                            tasks[taskIndex].markAsNotDone();
+                            tasks.get(taskIndex).markAsNotDone();
                             System.out.println("OK, I've marked this task as not done yet:");
-                            System.out.println("  " + tasks[taskIndex]);
+                            System.out.println("  " + tasks.get(taskIndex));
                         } catch (NumberFormatException e) {
                             throw new SageException(
                                     "The task number should be a number, like `unmark 2`."
@@ -123,11 +123,10 @@ public class Sage {
                             );
                         }
 
-                        tasks[taskCount] = new Deadline(description, by);
-                        taskCount++;
+                        tasks.add(new Deadline(description, by));
 
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks[taskCount - 1]);
+                        System.out.println("  " + tasks.get(tasks.size() - 1));
                     } else if (command.equals("todo") || command.startsWith("todo ")) {
                         String description = command.length() > 4
                                 ? command.substring(5).trim()
@@ -139,16 +138,15 @@ public class Sage {
                             );
                         }
 
-                        tasks[taskCount] = new Todo(description);
-                        taskCount++;
+                        tasks.add(new Todo(description));
 
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks[taskCount - 1]);
+                        System.out.println("  " + tasks.get(tasks.size() - 1));
 
-                        if (taskCount == 1) {
+                        if (tasks.size() == 1) {
                             System.out.println("Now you have 1 task in the list.");
                         } else {
-                            System.out.println("Now you have " + taskCount + " tasks in the list.");
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
                     }else if (command.equals("event") || command.startsWith("event ")) {
                         String eventDetails = command.length() > 5
@@ -195,16 +193,15 @@ public class Sage {
                             );
                         }
 
-                        tasks[taskCount] = new Event(description, from, to);
-                        taskCount++;
+                        tasks.add(new Event(description, from, to));
 
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks[taskCount - 1]);
+                        System.out.println("  " + tasks.get(tasks.size() - 1));
 
-                        if (taskCount == 1) {
+                        if (tasks.size()== 1) {
                             System.out.println("Now you have 1 task in the list.");
                         } else {
-                            System.out.println("Now you have " + taskCount + " tasks in the list.");
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
 
                     } else {
