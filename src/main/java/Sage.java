@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Starts the Sage chatbot application.
@@ -28,8 +29,7 @@ public class Sage {
         System.out.println("What can I do for you?");
         System.out.println(divider);
 
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
 
         try (Scanner scanner = new Scanner(System.in)) {
