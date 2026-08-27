@@ -30,8 +30,8 @@ public class Sage {
         System.out.println("What can I do for you?");
         System.out.println(divider);
 
-        ArrayList<Task> tasks = new ArrayList<>();
         Storage storage = new Storage("data/sage.txt");
+        ArrayList<Task> tasks = storage.load();
 
 
         try (Scanner scanner = new Scanner(System.in)) {
