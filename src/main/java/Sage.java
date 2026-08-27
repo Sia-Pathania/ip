@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ public class Sage {
      *
      * @param args command-line arguments (not used)
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String divider = "____________________________________________________________";
         String banner = " ____                   \n"
                 + "/ ___|  __ _  __ _  ___ \n"
@@ -30,6 +31,7 @@ public class Sage {
         System.out.println(divider);
 
         ArrayList<Task> tasks = new ArrayList<>();
+        Storage storage = new Storage("data/sage.txt");
 
 
         try (Scanner scanner = new Scanner(System.in)) {
@@ -64,6 +66,8 @@ public class Sage {
                             }
 
                             tasks.get(taskIndex).markAsDone();
+                            storage.save(tasks);
+
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println("  " + tasks.get(taskIndex));
                         } catch (NumberFormatException e) {
@@ -86,6 +90,8 @@ public class Sage {
                                 );
                             }
                             tasks.get(taskIndex).markAsNotDone();
+                            storage.save(tasks);
+
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println("  " + tasks.get(taskIndex));
                         } catch (NumberFormatException e) {
@@ -124,6 +130,7 @@ public class Sage {
                         }
 
                         tasks.add(new Deadline(description, by));
+                        storage.save(tasks);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
@@ -139,6 +146,8 @@ public class Sage {
                         }
 
                         tasks.add(new Todo(description));
+                        storage.save(tasks);
+
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
@@ -194,6 +203,7 @@ public class Sage {
                         }
 
                         tasks.add(new Event(description, from, to));
+                        storage.save(tasks);
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
