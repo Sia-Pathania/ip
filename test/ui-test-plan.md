@@ -2,6 +2,10 @@
 
 Run every case as a fresh session with Java 25.
 
+For each case, run from a fresh temporary working directory so the relative
+`data/sage.txt` file starts empty. This also verifies that the data directory
+is created automatically.
+
 Dates and times are treated as strings; no date/time conversion is expected.
 
 Launch command:
@@ -171,6 +175,48 @@ ____________________________________________________________
 **Input:**
 ```text
 bye
+```
+
+## Test case 8: Deleting a task persists
+
+**Aim:** Verify that deleting a task is saved to disk.
+
+**Input:**
+```text
+todo temporary task
+delete 1
+list
+bye
+```
+
+**Expected output:**
+```text
+Here are the tasks in your list:
+____________________________________________________________
+```
+
+## Test case 9: Loading tasks after restart
+
+**Aim:** Verify that tasks saved by one session are loaded by the next session.
+
+**Input:**
+```text
+todo remember this
+bye
+```
+
+Then start Sage again in the same working directory and enter:
+
+```text
+list
+bye
+```
+
+**Expected output in the second session:**
+```text
+Here are the tasks in your list:
+1.[T][ ] remember this
+____________________________________________________________
 ```
 
 **Expected output:**

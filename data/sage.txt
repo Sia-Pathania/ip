@@ -1,0 +1,2 @@
+T|0|join lectures|
+T|1|do quiz|
