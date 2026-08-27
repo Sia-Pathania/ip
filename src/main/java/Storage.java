@@ -55,6 +55,28 @@ public class Storage {
         if (!Files.exists(filePath)) {
             return tasks;
         }
+
+        for (String line : Files.readAllLines(filePath, StandardCharsets.UTF_8)) {
+            String[] parts = line.split("\\|", -1);
+            if (parts.length < 4) continue;
+            Task task;
+            if (parts[0].equals("D")) {
+                task = new Deadline(parts[2], parts[3]);
+            }
+            else if (parts[0].equals("E") && parts.length >= 5) {
+                task = new Event(parts[2], parts[3], parts[4]);
+            }
+            else if (parts[0].equals("T")) {
+                task = new Todo(parts[2]);
+            }
+            else continue;
+
+            if (parts[1].equals("1")) {
+                task.markAsDone();
+            }
+            tasks.add(task);
+        }
+        return tasks;
     }
 
 }
