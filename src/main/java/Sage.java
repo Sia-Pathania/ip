@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -129,8 +131,15 @@ public class Sage {
                             );
                         }
 
-                        tasks.add(new Deadline(description, by));
+                        DateTimeFormatter formatter =
+                                DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+                        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+
+                        tasks.add(new Deadline(description, dateTime));
                         storage.save(tasks);
+
+
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
