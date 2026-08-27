@@ -227,6 +227,7 @@ public class Sage {
 
 
                         Task deletedTask = tasks.remove(taskIndex);
+                        storage.save(tasks);
 
                         System.out.println("Noted. I've removed this task:");
                         System.out.println("  " + deletedTask);

@@ -20,14 +20,24 @@ public class Task {
      * Marks this task as done.
      */
     public void markAsDone() {
+
         isDone = true;
     }
 
     /**
      * Marks this task as not done.
      */
-    public void markAsNotDone() {
+    public void markAsNotDone()
+    {
         isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     /**
@@ -52,4 +62,3 @@ public class Task {
         }
 
 }
-

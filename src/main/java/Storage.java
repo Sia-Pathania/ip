@@ -1,22 +1,49 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Storage {
-    private String filePath;
+    private final Path filePath;
 
     public Storage(String filePath) {
-        this.filePath = filePath;
+        this.filePath = Paths.get(filePath);
     }
 
     public void save(ArrayList<Task> tasks) throws IOException {
-        FileWriter writer = new FileWriter(filePath);
+        File file = new File(filePath.toUri());
+
+        File parent = file.getParentFile();
+        if (parent != null) {
+            parent.mkdirs();
+        }
+
+        FileWriter writer = new FileWriter(file);
 
         for (Task task : tasks) {
-            writer.write(task.toString() + System.lineSeparator());
+            String type;
+            String details = "";
+
+            if (task instanceof Deadline) {
+                type = "D";
+                details = ((Deadline) task).getBy();
+            } else if (task instanceof Event) {
+                type = "E";
+                details = ((Event) task).getFrom() + "|"
+                        + ((Event) task).getTo();
+            } else {
+                type = "T";
+            }
+
+            writer.write(type + "|" + (task.isDone() ? "1" : "0") + "|"
+                    + task.getDescription() + "|" + details);
+            writer.write(System.lineSeparator());
         }
 
         writer.close();
@@ -25,24 +52,9 @@ public class Storage {
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
 
-        File file = new File(filePath);
-
-        // First time running: file doesn't exist yet
-        if (!file.exists()) {
+        if (!Files.exists(filePath)) {
             return tasks;
         }
-
-        Scanner scanner = new Scanner(file);
-
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-
-            System.out.println(line); // temporary, to check that it reads
-        }
-
-        scanner.close();
-
-        return tasks;
     }
 
 }
