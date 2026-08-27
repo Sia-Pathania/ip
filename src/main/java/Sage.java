@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
 
 /**
  * Starts the Sage chatbot application.
@@ -129,7 +130,11 @@ public class Sage {
                             );
                         }
 
-                        tasks.add(new Deadline(description, by));
+
+                        LocalDate date = LocalDate.parse(by);
+
+
+                        tasks.add(new Deadline(description, date));
                         storage.save(tasks);
 
                         System.out.println("Got it. I've added this task:");
