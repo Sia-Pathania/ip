@@ -14,7 +14,9 @@ public class DeleteCommand extends Command {
     private final String input;
 
     /** Creates a delete command from the raw command input. */
-    public DeleteCommand(String input) { this.input = input; }
+    public DeleteCommand(String input) {
+        this.input = input;
+    }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, SageException {
