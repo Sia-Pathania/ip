@@ -16,13 +16,16 @@ import sage.model.Task;
 import sage.model.TaskList;
 import sage.model.Todo;
 
+/** Loads tasks from and saves tasks to Sage's data file. */
 public class Storage {
     private final Path filePath;
 
+    /** Creates storage backed by the supplied file path. */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
     }
 
+    /** Saves all tasks and their completion states to the data file. */
     public void save(TaskList tasks) throws IOException {
         File file = new File(filePath.toUri());
 
@@ -56,6 +59,7 @@ public class Storage {
         writer.close();
     }
 
+    /** Loads tasks from the data file, returning an empty list when absent. */
     public TaskList load() throws IOException {
         TaskList tasks = new TaskList();
 

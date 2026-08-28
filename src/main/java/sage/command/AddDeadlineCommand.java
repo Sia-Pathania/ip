@@ -29,6 +29,7 @@ public class AddDeadlineCommand extends Command {
         showAdded(ui, tasks);
     }
 
+    /** Displays confirmation and the updated task count after adding a deadline. */
     private void showAdded(Ui ui, TaskList tasks) {
         ui.show("Got it. I've added this task:");
         ui.show("  " + tasks.get(tasks.size() - 1));
