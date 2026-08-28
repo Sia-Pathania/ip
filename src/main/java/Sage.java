@@ -102,28 +102,6 @@ public class Sage {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
 
-                    } else if (commandName.equals("todo")) {
-                        String description = parser.getTodoDescription(command);
-
-                        if (description.isBlank()) {
-                            throw new SageException(
-                                    "Your todo needs a description. What would you like to add?"
-                            );
-                        }
-
-                        tasks.add(new Todo(description));
-                        storage.save(tasks);
-
-
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("  " + tasks.get(tasks.size() - 1));
-
-                        if (tasks.size() == 1) {
-                            System.out.println("Now you have 1 task in the list.");
-                        } else {
-                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                        }
-
                     }else if (commandName.equals("event")) {
                         String eventDetails = parser.getEventDetails(command);
 

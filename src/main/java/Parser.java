@@ -20,6 +20,9 @@ public class Parser {
         if (commandName.equals("list")) {
             return new ListCommand();
         }
+        if (commandName.equals("todo")) {
+            return new AddTodoCommand(getTodoDescription(command));
+        }
         return null;
     }
 
