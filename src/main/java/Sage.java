@@ -85,7 +85,7 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("deadline")) {
-                        String deadlineDetails = parser.getArguments(command);
+                        String deadlineDetails = parser.getDeadlineDetails(command);
 
                         int byIndex = deadlineDetails.indexOf(" /by ");
 
@@ -130,7 +130,7 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("todo")) {
-                        String description = parser.getArguments(command);
+                        String description = parser.getTodoDescription(command);
 
                         if (description.isBlank()) {
                             throw new SageException(
@@ -152,7 +152,7 @@ public class Sage {
                         }
 
                     }else if (commandName.equals("event")) {
-                        String eventDetails = parser.getArguments(command);
+                        String eventDetails = parser.getEventDetails(command);
 
                         int fromIndex = eventDetails.indexOf("/from ");
                         int toIndex = eventDetails.indexOf("/to ");
@@ -231,7 +231,7 @@ public class Sage {
                         System.out.println("  " + deletedTask);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     } else if (commandName.equals("on")) {
-                        String dateInput = parser.getArguments(command);
+                        String dateInput = parser.getDateInput(command);
 
                         DateTimeFormatter formatter =
                                 DateTimeFormatter.ofPattern("d/M/yyyy");

@@ -36,4 +36,24 @@ public class Parser {
     public int parseTaskNumber(String command) {
         return Integer.parseInt(getArguments(command));
     }
+
+    /** Returns the Todo description supplied by the user. */
+    public String getTodoDescription(String command) {
+        return getArguments(command);
+    }
+
+    /** Returns the raw Deadline details supplied by the user. */
+    public String getDeadlineDetails(String command) {
+        return getArguments(command);
+    }
+
+    /** Returns the raw Event details supplied by the user. */
+    public String getEventDetails(String command) {
+        return getArguments(command);
+    }
+
+    /** Returns the date supplied to the {@code on} command. */
+    public String getDateInput(String command) {
+        return getArguments(command);
+    }
 }
