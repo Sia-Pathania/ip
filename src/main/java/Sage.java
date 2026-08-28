@@ -35,12 +35,6 @@ public class Sage {
                             ui.showDivider();
                             break;
                         }
-                    } else if (commandName.equals("list")) {
-                        System.out.println("Here are the tasks in your list:");
-                        for (int index = 0; index < tasks.size(); index++) {
-                            System.out.println((index + 1) + "." + tasks.get(index));
-                        }
-
                     } else if (commandName.equals("mark")) {
                         try {
                             int taskNumber = parser.parseTaskNumber(command);

@@ -13,7 +13,14 @@ public class Parser {
 
     /** Creates the command object for command types already extracted. */
     public Command parseCommand(String command) {
-        return getCommandName(command).equals("bye") ? new ExitCommand() : null;
+        String commandName = getCommandName(command);
+        if (commandName.equals("bye")) {
+            return new ExitCommand();
+        }
+        if (commandName.equals("list")) {
+            return new ListCommand();
+        }
+        return null;
     }
 
     /**
