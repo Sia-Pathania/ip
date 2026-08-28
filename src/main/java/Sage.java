@@ -111,10 +111,7 @@ public class Sage {
                             );
                         }
 
-                        DateTimeFormatter formatter =
-                                DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
-                        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+                        LocalDateTime dateTime = parser.parseDateTime(by);
 
                         tasks.add(new Deadline(description, dateTime));
                         storage.save(tasks);
@@ -181,11 +178,8 @@ public class Sage {
                         String from = eventDetails.substring(fromIndex + 6, toIndex).trim();
                         String to = eventDetails.substring(toIndex + 4).trim();
 
-                        DateTimeFormatter formatter =
-                                DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
-                        LocalDateTime fromDateTime = LocalDateTime.parse(from, formatter);
-                        LocalDateTime toDateTime = LocalDateTime.parse(to, formatter);
+                        LocalDateTime fromDateTime = parser.parseDateTime(from);
+                        LocalDateTime toDateTime = parser.parseDateTime(to);
 
 
                         if (from.isBlank()) {
@@ -233,10 +227,7 @@ public class Sage {
                     } else if (commandName.equals("on")) {
                         String dateInput = parser.getDateInput(command);
 
-                        DateTimeFormatter formatter =
-                                DateTimeFormatter.ofPattern("d/M/yyyy");
-
-                        LocalDate date = LocalDate.parse(dateInput, formatter);
+                        LocalDate date = parser.parseDate(dateInput);
 
                         boolean found = false;
 

@@ -1,7 +1,16 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Makes the command name in a user's input available to the application.
  */
 public class Parser {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("d/M/yyyy");
+
     /**
      * Returns the first whitespace-delimited word in a command.
      *
@@ -55,5 +64,15 @@ public class Parser {
     /** Returns the date supplied to the {@code on} command. */
     public String getDateInput(String command) {
         return getArguments(command);
+    }
+
+    /** Parses a deadline or event date and time. */
+    public LocalDateTime parseDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
+    }
+
+    /** Parses a date used by the {@code on} command. */
+    public LocalDate parseDate(String date) {
+        return LocalDate.parse(date, DATE_FORMATTER);
     }
 }
