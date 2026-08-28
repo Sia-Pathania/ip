@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 /**
  * Starts the Sage chatbot application.
@@ -19,7 +18,7 @@ public class Sage {
         Ui ui = new Ui();
         ui.showWelcome();
         Storage storage = new Storage("data/sage.txt");
-        ArrayList<Task> tasks = storage.load();
+        TaskList tasks = new TaskList(storage.load());
 
         try (ui) {
             String command;
