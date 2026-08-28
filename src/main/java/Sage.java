@@ -140,9 +140,15 @@ public class Sage {
                         storage.save(tasks);
 
 
-
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
+
+                        if (tasks.size()== 1) {
+                            System.out.println("Now you have 1 task in the list.");
+                        } else {
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        }
+
                     } else if (command.equals("todo") || command.startsWith("todo ")) {
                         String description = command.length() > 4
                                 ? command.substring(5).trim()
@@ -166,6 +172,7 @@ public class Sage {
                         } else {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
+
                     }else if (command.equals("event") || command.startsWith("event ")) {
                         String eventDetails = command.length() > 5
                                 ? command.substring(6)
