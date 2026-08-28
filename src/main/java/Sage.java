@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -129,11 +131,24 @@ public class Sage {
                             );
                         }
 
-                        tasks.add(new Deadline(description, by));
+                        DateTimeFormatter formatter =
+                                DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+                        LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
+
+                        tasks.add(new Deadline(description, dateTime));
                         storage.save(tasks);
+
 
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
+
+                        if (tasks.size()== 1) {
+                            System.out.println("Now you have 1 task in the list.");
+                        } else {
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        }
+
                     } else if (command.equals("todo") || command.startsWith("todo ")) {
                         String description = command.length() > 4
                                 ? command.substring(5).trim()
@@ -157,6 +172,7 @@ public class Sage {
                         } else {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
+
                     }else if (command.equals("event") || command.startsWith("event ")) {
                         String eventDetails = command.length() > 5
                                 ? command.substring(6)
@@ -189,6 +205,12 @@ public class Sage {
                         String from = eventDetails.substring(fromIndex + 6, toIndex).trim();
                         String to = eventDetails.substring(toIndex + 4).trim();
 
+                        DateTimeFormatter formatter =
+                                DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+                        LocalDateTime fromDateTime = LocalDateTime.parse(from, formatter);
+                        LocalDateTime toDateTime = LocalDateTime.parse(to, formatter);
+
 
                         if (from.isBlank()) {
                             throw new SageException(
@@ -202,7 +224,7 @@ public class Sage {
                             );
                         }
 
-                        tasks.add(new Event(description, from, to));
+                        tasks.add(new Event(description, fromDateTime, toDateTime));
                         storage.save(tasks);
 
                         System.out.println("Got it. I've added this task:");
