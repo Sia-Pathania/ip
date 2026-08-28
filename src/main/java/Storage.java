@@ -36,8 +36,8 @@ public class Storage {
                 details = ((Deadline) task).getBy().toString();
             } else if (task instanceof Event) {
                 type = "E";
-                details = ((Event) task).getFrom() + "|"
-                        + ((Event) task).getTo();
+                details = ((Event) task).getFrom().toString() + "|"
+                        + ((Event) task).getTo().toString();
             } else {
                 type = "T";
             }
@@ -66,7 +66,9 @@ public class Storage {
                 task = new Deadline(parts[2], dateTime);
             }
             else if (parts[0].equals("E") && parts.length >= 5) {
-                task = new Event(parts[2], parts[3], parts[4]);
+                LocalDateTime from = LocalDateTime.parse(parts[3]);
+                LocalDateTime to = LocalDateTime.parse(parts[4]);
+                task = new Event(parts[2], from, to);
             }
             else if (parts[0].equals("T")) {
                 task = new Todo(parts[2]);
