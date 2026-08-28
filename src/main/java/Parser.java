@@ -29,6 +29,15 @@ public class Parser {
         if (commandName.equals("event")) {
             return new AddEventCommand(getEventDetails(command));
         }
+        if (commandName.equals("mark")) {
+            return new MarkCommand(command);
+        }
+        if (commandName.equals("unmark")) {
+            return new UnmarkCommand(command);
+        }
+        if (commandName.equals("delete")) {
+            return new DeleteCommand(command);
+        }
         return null;
     }
 
