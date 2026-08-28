@@ -23,6 +23,12 @@ public class Parser {
         if (commandName.equals("todo")) {
             return new AddTodoCommand(getTodoDescription(command));
         }
+        if (commandName.equals("deadline")) {
+            return new AddDeadlineCommand(getDeadlineDetails(command));
+        }
+        if (commandName.equals("event")) {
+            return new AddEventCommand(getEventDetails(command));
+        }
         return null;
     }
 

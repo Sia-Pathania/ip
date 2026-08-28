@@ -1,0 +1,29 @@
+import java.io.IOException;
+import java.time.LocalDateTime;
+
+/** Command that creates and saves a Deadline task. */
+public class AddDeadlineCommand extends Command {
+    private final String details;
+
+    /** Creates a Deadline command for raw deadline details. */
+    public AddDeadlineCommand(String details) {
+        this.details = details;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, SageException {
+        Parser parser = new Parser();
+        String[] parts = parser.parseDeadlineDetails(details);
+        LocalDateTime dateTime = parser.parseDateTime(parts[1]);
+        tasks.add(new Deadline(parts[0], dateTime));
+        storage.save(tasks);
+        showAdded(ui, tasks);
+    }
+
+    private void showAdded(Ui ui, TaskList tasks) {
+        ui.show("Got it. I've added this task:");
+        ui.show("  " + tasks.get(tasks.size() - 1));
+        ui.show("Now you have " + tasks.size() + " task"
+                + (tasks.size() == 1 ? "" : "s") + " in the list.");
+    }
+}
