@@ -75,4 +75,62 @@ public class Parser {
     public LocalDate parseDate(String date) {
         return LocalDate.parse(date, DATE_FORMATTER);
     }
+
+    /**
+     * Splits and validates Deadline input into description and due date.
+     *
+     * @throws SageException when a required field is missing
+     */
+    public String[] parseDeadlineDetails(String details) throws SageException {
+        int byIndex = details.indexOf(" /by ");
+        if (byIndex == -1) {
+            throw new SageException(
+                    "Your deadline is missing a /by date or time. Could you try again?");
+        }
+        String description = details.substring(0, byIndex);
+        if (description.isBlank()) {
+            throw new SageException(
+                    "Your deadline needs a description. What would you like to add?");
+        }
+        String by = details.substring(byIndex + 5);
+        if (by.isBlank()) {
+            throw new SageException(
+                    "Your deadline needs a date or time after /by. Could you try again?");
+        }
+        return new String[] {description, by};
+    }
+
+    /**
+     * Splits and validates Event input into description, start, and end values.
+     *
+     * @throws SageException when a required field is missing
+     */
+    public String[] parseEventDetails(String details) throws SageException {
+        int fromIndex = details.indexOf("/from ");
+        int toIndex = details.indexOf("/to ");
+        if (fromIndex == -1) {
+            throw new SageException(
+                    "Your event is missing a /from start time. Could you try again?");
+        }
+        if (toIndex == -1) {
+            throw new SageException(
+                    "Your event is missing a /to end time. Could you try again?");
+        }
+        String description = details.substring(0, fromIndex).trim();
+        if (description.isBlank()) {
+            throw new SageException(
+                    "Your event needs a description. What would you like to add?");
+        }
+        String from = details.substring(fromIndex + 6, toIndex).trim();
+        String to = details.substring(toIndex + 4).trim();
+        if (from.isBlank()) {
+            throw new SageException(
+                    "Your event needs a start time after /from. Could you try again?");
+        }
+        if (to.isBlank()) {
+            throw new SageException(
+                    "Your event needs an end time after /to. Could you try again?");
+        }
+        return new String[] {description, from, to};
+    }
 }

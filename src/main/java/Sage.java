@@ -87,29 +87,9 @@ public class Sage {
                     } else if (commandName.equals("deadline")) {
                         String deadlineDetails = parser.getDeadlineDetails(command);
 
-                        int byIndex = deadlineDetails.indexOf(" /by ");
-
-                        if (byIndex == -1) {
-                            throw new SageException(
-                                    "Your deadline is missing a /by date or time. Could you try again?"
-                            );
-                        }
-
-                        String description = deadlineDetails.substring(0, byIndex);
-
-                        if (description.isBlank()) {
-                            throw new SageException(
-                                    "Your deadline needs a description. What would you like to add?"
-                            );
-                        }
-
-                        String by = deadlineDetails.substring(byIndex + 5);
-
-                        if (by.isBlank()) {
-                            throw new SageException(
-                                    "Your deadline needs a date or time after /by. Could you try again?"
-                            );
-                        }
+                        String[] deadlineParts = parser.parseDeadlineDetails(deadlineDetails);
+                        String description = deadlineParts[0];
+                        String by = deadlineParts[1];
 
                         LocalDateTime dateTime = parser.parseDateTime(by);
 
@@ -151,48 +131,14 @@ public class Sage {
                     }else if (commandName.equals("event")) {
                         String eventDetails = parser.getEventDetails(command);
 
-                        int fromIndex = eventDetails.indexOf("/from ");
-                        int toIndex = eventDetails.indexOf("/to ");
-
-                        if (fromIndex == -1) {
-                            throw new SageException(
-                                    "Your event is missing a /from start time. Could you try again?"
-                            );
-                        }
-
-                        if (toIndex == -1) {
-                            throw new SageException(
-                                    "Your event is missing a /to end time. Could you try again?"
-                            );
-                        }
-
-                    String description = eventDetails.substring(0, fromIndex).trim();
-
-                        if (description.isBlank()) {
-                            throw new SageException(
-                                    "Your event needs a description. What would you like to add?"
-                            );
-                        }
-
-
-                        String from = eventDetails.substring(fromIndex + 6, toIndex).trim();
-                        String to = eventDetails.substring(toIndex + 4).trim();
+                        String[] eventParts = parser.parseEventDetails(eventDetails);
+                        String description = eventParts[0];
+                        String from = eventParts[1];
+                        String to = eventParts[2];
 
                         LocalDateTime fromDateTime = parser.parseDateTime(from);
                         LocalDateTime toDateTime = parser.parseDateTime(to);
 
-
-                        if (from.isBlank()) {
-                            throw new SageException(
-                                    "Your event needs a start time after /from. Could you try again?"
-                            );
-                        }
-
-                        if (to.isBlank()) {
-                            throw new SageException(
-                                    "Your event needs an end time after /to. Could you try again?"
-                            );
-                        }
 
                         tasks.add(new Event(description, fromDateTime, toDateTime));
                         storage.save(tasks);
