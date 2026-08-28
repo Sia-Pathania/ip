@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -17,35 +16,20 @@ public class Sage {
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) throws IOException {
-        String divider = "____________________________________________________________";
-        String banner = " ____                   \n"
-                + "/ ___|  __ _  __ _  ___ \n"
-                + "\\___ \\ / _` |/ _` |/ _ \\\n"
-                + " ___) | (_| | (_| |  __/\n"
-                + "|____/ \\__,_|\\__, |\\___|\n"
-                + "             |___/      \n";
-
-        System.out.println(divider);
-        System.out.print(banner);
-        System.out.println("Hello! I'm Sage.");
-        System.out.println("I'm here whenever you feel like chatting!");
-        System.out.println(divider);
-        System.out.println("What can I do for you?");
-        System.out.println(divider);
-
+        Ui ui = new Ui();
+        ui.showWelcome();
         Storage storage = new Storage("data/sage.txt");
         ArrayList<Task> tasks = storage.load();
 
-
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (scanner.hasNextLine()) {
-                String command = scanner.nextLine();
-                System.out.println(divider);
+        try (ui) {
+            String command;
+            while ((command = ui.readCommand()) != null) {
+                ui.showDivider();
 
                 try {
                     if (command.equals("bye")) {
                         System.out.println("Bye. Hope to see you again soon!");
-                        System.out.println(divider);
+                        ui.showDivider();
                         break;
 
                     } else if (command.equals("list")) {
@@ -300,7 +284,7 @@ public class Sage {
                     System.out.println(e.getMessage());
                 }
 
-                System.out.println(divider);
+                ui.showDivider();
             }
         }
     }
