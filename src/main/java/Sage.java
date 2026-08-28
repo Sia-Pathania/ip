@@ -198,6 +198,12 @@ public class Sage {
                         String from = eventDetails.substring(fromIndex + 6, toIndex).trim();
                         String to = eventDetails.substring(toIndex + 4).trim();
 
+                        DateTimeFormatter formatter =
+                                DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+                        LocalDateTime fromDateTime = LocalDateTime.parse(from, formatter);
+                        LocalDateTime toDateTime = LocalDateTime.parse(to, formatter);
+
 
                         if (from.isBlank()) {
                             throw new SageException(
@@ -211,7 +217,7 @@ public class Sage {
                             );
                         }
 
-                        tasks.add(new Event(description, from, to));
+                        tasks.add(new Event(description, fromDateTime, toDateTime));
                         storage.save(tasks);
 
                         System.out.println("Got it. I've added this task:");
