@@ -10,6 +10,7 @@ import sage.command.AddTodoCommand;
 import sage.command.Command;
 import sage.command.DeleteCommand;
 import sage.command.ExitCommand;
+import sage.command.FindCommand;
 import sage.command.ListCommand;
 import sage.command.MarkCommand;
 import sage.command.UnmarkCommand;
@@ -32,6 +33,9 @@ public class Parser {
         }
         if (commandName.equals("list")) {
             return new ListCommand();
+        }
+        if (commandName.equals("find")) {
+            return new FindCommand(getArguments(command));
         }
         if (commandName.equals("todo")) {
             return new AddTodoCommand(getTodoDescription(command));
