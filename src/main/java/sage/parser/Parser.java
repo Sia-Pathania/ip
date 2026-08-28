@@ -24,7 +24,7 @@ public class Parser {
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("d/M/yyyy");
 
-    /** Creates the command object for command types already extracted. */
+    /** Creates the command object corresponding to the user's input. */
     public Command parseCommand(String command) {
         String commandName = getCommandName(command);
         if (commandName.equals("bye")) {
