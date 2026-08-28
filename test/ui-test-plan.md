@@ -225,3 +225,55 @@ ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
+
+## Test case 10: Finding tasks by keyword
+
+**Aim:** Verify that `find` displays matching tasks with their original list numbers.
+
+**Input:**
+```text
+todo read book
+todo return book
+todo buy milk
+find book
+bye
+```
+
+**Expected output:**
+```text
+Here are the matching tasks in your list:
+1.[T][ ] read book
+2.[T][ ] return book
+```
+
+## Test case 11: Finding with no matches
+
+**Aim:** Verify that `find` reports when no task description contains the keyword.
+
+**Input:**
+```text
+todo read book
+find holiday
+bye
+```
+
+**Expected output:**
+```text
+Here are the matching tasks in your list:
+There are no tasks matching "holiday".
+```
+
+## Test case 12: Finding without a keyword
+
+**Aim:** Verify that `find` without a keyword reports a helpful error.
+
+**Input:**
+```text
+find
+bye
+```
+
+**Expected output:**
+```text
+Please provide a keyword to find, like `find book`.
+```
