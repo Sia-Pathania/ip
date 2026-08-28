@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -254,6 +255,41 @@ public class Sage {
                         System.out.println("Noted. I've removed this task:");
                         System.out.println("  " + deletedTask);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    } else if (command.startsWith("on ")) {
+                        String dateInput = command.substring(3);
+
+                        DateTimeFormatter formatter =
+                                DateTimeFormatter.ofPattern("d/M/yyyy");
+
+                        LocalDate date = LocalDate.parse(dateInput, formatter);
+
+                        boolean found = false;
+
+                        for (Task task : tasks) {
+                            if (task instanceof Deadline) {
+                                Deadline deadline = (Deadline) task;
+
+                                if (deadline.getBy().toLocalDate().equals(date)) {
+                                    System.out.println(deadline);
+                                    found = true;
+                                }
+
+                            } else if (task instanceof Event) {
+                                Event event = (Event) task;
+
+                                LocalDate from = event.getFrom().toLocalDate();
+                                LocalDate to = event.getTo().toLocalDate();
+
+                                if (!date.isBefore(from) && !date.isAfter(to)) {
+                                    System.out.println(event);
+                                    found = true;
+                                }
+                            }
+                        }
+
+                        if (!found) {
+                            System.out.println("There are no deadlines or events on " + date + ".");
+                        }
                     } else {
                         throw new SageException(
                                 "I didn't quite catch that. You can add a todo, deadline, or event whenever you're ready. Could you try again?"
