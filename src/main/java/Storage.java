@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 
 public class Storage {
@@ -17,7 +16,7 @@ public class Storage {
         this.filePath = Paths.get(filePath);
     }
 
-    public void save(ArrayList<Task> tasks) throws IOException {
+    public void save(TaskList tasks) throws IOException {
         File file = new File(filePath.toUri());
 
         File parent = file.getParentFile();
@@ -50,8 +49,8 @@ public class Storage {
         writer.close();
     }
 
-    public ArrayList<Task> load() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public TaskList load() throws IOException {
+        TaskList tasks = new TaskList();
 
         if (!Files.exists(filePath)) {
             return tasks;

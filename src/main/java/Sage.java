@@ -19,7 +19,7 @@ public class Sage {
         Parser parser = new Parser();
         ui.showWelcome();
         Storage storage = new Storage("data/sage.txt");
-        TaskList tasks = new TaskList(storage.load());
+        TaskList tasks = storage.load();
 
         try (ui) {
             String command;

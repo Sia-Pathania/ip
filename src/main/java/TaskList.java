@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Owns the collection of tasks used by Sage.
@@ -18,7 +19,7 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param tasks tasks to copy into this list
      */
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(Collection<Task> tasks) {
         super(tasks);
     }
 }
