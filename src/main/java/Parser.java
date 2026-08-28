@@ -11,6 +11,11 @@ public class Parser {
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("d/M/yyyy");
 
+    /** Creates the command object for command types already extracted. */
+    public Command parseCommand(String command) {
+        return getCommandName(command).equals("bye") ? new ExitCommand() : null;
+    }
+
     /**
      * Returns the first whitespace-delimited word in a command.
      *

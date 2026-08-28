@@ -28,11 +28,13 @@ public class Sage {
                 String commandName = parser.getCommandName(command);
 
                 try {
-                    if (commandName.equals("bye")) {
-                        System.out.println("Bye. Hope to see you again soon!");
-                        ui.showDivider();
-                        break;
-
+                    Command parsedCommand = parser.parseCommand(command);
+                    if (parsedCommand != null) {
+                        parsedCommand.execute(tasks, ui, storage);
+                        if (parsedCommand.isExit()) {
+                            ui.showDivider();
+                            break;
+                        }
                     } else if (commandName.equals("list")) {
                         System.out.println("Here are the tasks in your list:");
                         for (int index = 0; index < tasks.size(); index++) {
