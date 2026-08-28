@@ -32,7 +32,7 @@ public class Storage {
 
             if (task instanceof Deadline) {
                 type = "D";
-                details = ((Deadline) task).getBy();
+                details = ((Deadline) task).getBy().toString();
             } else if (task instanceof Event) {
                 type = "E";
                 details = ((Event) task).getFrom() + "|"
