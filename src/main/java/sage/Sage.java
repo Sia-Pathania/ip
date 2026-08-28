@@ -108,13 +108,13 @@ public class Sage {
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
 
-                        if (tasks.size()== 1) {
+                        if (tasks.size() == 1) {
                             System.out.println("Now you have 1 task in the list.");
                         } else {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
 
-                    }else if (commandName.equals("event")) {
+                    } else if (commandName.equals("event")) {
                         String eventDetails = parser.getEventDetails(command);
 
                         String[] eventParts = parser.parseEventDetails(eventDetails);
@@ -132,7 +132,7 @@ public class Sage {
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + tasks.get(tasks.size() - 1));
 
-                        if (tasks.size()== 1) {
+                        if (tasks.size() == 1) {
                             System.out.println("Now you have 1 task in the list.");
                         } else {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");

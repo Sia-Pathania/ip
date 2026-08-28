@@ -1,6 +1,5 @@
 package sage.storage;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +15,11 @@ import sage.model.Task;
 import sage.model.TaskList;
 import sage.model.Todo;
 
+
 /** Loads tasks from and saves tasks to Sage's data file. */
+
+/** Reads and writes Sage tasks to a local text file. */
+
 public class Storage {
     private final Path filePath;
 
@@ -25,7 +28,11 @@ public class Storage {
         this.filePath = Paths.get(filePath);
     }
 
+
     /** Saves all tasks and their completion states to the data file. */
+
+    /** Saves all tasks in the list to disk. */
+
     public void save(TaskList tasks) throws IOException {
         File file = new File(filePath.toUri());
 
@@ -59,7 +66,9 @@ public class Storage {
         writer.close();
     }
 
-    /** Loads tasks from the data file, returning an empty list when absent. */
+
+    /** Loads all valid tasks from disk, or an empty list when no file exists. */
+
     public TaskList load() throws IOException {
         TaskList tasks = new TaskList();
 
@@ -69,21 +78,22 @@ public class Storage {
 
         for (String line : Files.readAllLines(filePath, StandardCharsets.UTF_8)) {
             String[] parts = line.split("\\|", -1);
-            if (parts.length < 4) continue;
+            if (parts.length < 4) {
+                continue;
+            }
             Task task;
             if (parts[0].equals("D")) {
                 LocalDateTime dateTime = LocalDateTime.parse(parts[3]);
                 task = new Deadline(parts[2], dateTime);
-            }
-            else if (parts[0].equals("E") && parts.length >= 5) {
+            } else if (parts[0].equals("E") && parts.length >= 5) {
                 LocalDateTime from = LocalDateTime.parse(parts[3]);
                 LocalDateTime to = LocalDateTime.parse(parts[4]);
                 task = new Event(parts[2], from, to);
-            }
-            else if (parts[0].equals("T")) {
+            } else if (parts[0].equals("T")) {
                 task = new Todo(parts[2]);
+            } else {
+                continue;
             }
-            else continue;
 
             if (parts[1].equals("1")) {
                 task.markAsDone();

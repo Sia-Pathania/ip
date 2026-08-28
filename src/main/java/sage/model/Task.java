@@ -29,17 +29,24 @@ public class Task {
     /**
      * Marks this task as not done.
      */
-    public void markAsNotDone()
-    {
+    public void markAsNotDone() {
         isDone = false;
     }
 
+
     /** Returns the description entered for this task. */
+
+    /** Returns this task's description. */
+
     public String getDescription() {
         return description;
     }
 
+
     /** Returns whether this task has been marked as done. */
+
+    /** Returns whether this task is marked as done. */
+
     public boolean isDone() {
         return isDone;
     }
@@ -50,9 +57,7 @@ public class Task {
      * @return {@code "X"} when done, or a space when not done
      */
     public String getStatusIcon() {
-        return isDone
-                ? "X"
-                : " ";
+        return isDone ? "X" : " ";
     }
 
     /**
@@ -62,7 +67,7 @@ public class Task {
      */
     @Override
     public String toString() {
-            return "[" + getStatusIcon() + "] " + description;
-        }
+        return "[" + getStatusIcon() + "] " + description;
+    }
 
 }
