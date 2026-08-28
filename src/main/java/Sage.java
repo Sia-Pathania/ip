@@ -40,7 +40,7 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("mark")) {
-                        String taskNumberText = command.substring(5);
+                        String taskNumberText = parser.getArguments(command);
 
                         try {
                             int taskNumber = Integer.parseInt(taskNumberText);
@@ -65,7 +65,7 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("unmark")) {
-                        String taskNumberText = command.substring(7);
+                        String taskNumberText = parser.getArguments(command);
 
                         try {
                             int taskNumber = Integer.parseInt(taskNumberText);
@@ -89,9 +89,7 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("deadline")) {
-                        String deadlineDetails = command.length() > 8
-                                ? command.substring(9)
-                                : "";
+                        String deadlineDetails = parser.getArguments(command);
 
                         int byIndex = deadlineDetails.indexOf(" /by ");
 
@@ -136,9 +134,7 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("todo")) {
-                        String description = command.length() > 4
-                                ? command.substring(5).trim()
-                                : "";
+                        String description = parser.getArguments(command);
 
                         if (description.isBlank()) {
                             throw new SageException(
@@ -160,9 +156,7 @@ public class Sage {
                         }
 
                     }else if (commandName.equals("event")) {
-                        String eventDetails = command.length() > 5
-                                ? command.substring(6)
-                                : "";
+                        String eventDetails = parser.getArguments(command);
 
                         int fromIndex = eventDetails.indexOf("/from ");
                         int toIndex = eventDetails.indexOf("/to ");
@@ -223,7 +217,7 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("delete")) {
-                        int taskNumber = Integer.parseInt(command.substring(7));
+                        int taskNumber = Integer.parseInt(parser.getArguments(command));
                         int taskIndex = taskNumber - 1;
 
                         if (taskIndex < 0 || taskIndex >= tasks.size()) {
@@ -241,7 +235,7 @@ public class Sage {
                         System.out.println("  " + deletedTask);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     } else if (commandName.equals("on")) {
-                        String dateInput = command.substring(3);
+                        String dateInput = parser.getArguments(command);
 
                         DateTimeFormatter formatter =
                                 DateTimeFormatter.ofPattern("d/M/yyyy");
