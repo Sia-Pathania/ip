@@ -1,4 +1,13 @@
+package sage.command;
+
 import java.io.IOException;
+
+import sage.exception.SageException;
+import sage.model.Task;
+import sage.model.TaskList;
+import sage.parser.Parser;
+import sage.storage.Storage;
+import sage.ui.Ui;
 
 /** Command that removes and saves a task-list update. */
 public class DeleteCommand extends Command {

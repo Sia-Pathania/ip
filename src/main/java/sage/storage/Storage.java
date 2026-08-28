@@ -1,3 +1,5 @@
+package sage.storage;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -8,6 +10,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
+import sage.model.Deadline;
+import sage.model.Event;
+import sage.model.Task;
+import sage.model.TaskList;
+import sage.model.Todo;
 
 public class Storage {
     private final Path filePath;

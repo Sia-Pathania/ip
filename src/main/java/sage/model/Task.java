@@ -1,3 +1,5 @@
+package sage.model;
+
 /**
  * Represents a task with a description and completion status.
  */

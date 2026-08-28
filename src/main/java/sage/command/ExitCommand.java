@@ -1,4 +1,10 @@
+package sage.command;
+
 import java.io.IOException;
+
+import sage.model.TaskList;
+import sage.storage.Storage;
+import sage.ui.Ui;
 
 /** Command that ends the Sage session. */
 public class ExitCommand extends Command {

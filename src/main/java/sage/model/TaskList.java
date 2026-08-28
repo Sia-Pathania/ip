@@ -1,3 +1,5 @@
+package sage.model;
+
 import java.util.ArrayList;
 import java.util.Collection;
 

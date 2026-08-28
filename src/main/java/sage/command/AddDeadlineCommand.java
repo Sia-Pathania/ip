@@ -1,5 +1,14 @@
+package sage.command;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
+
+import sage.exception.SageException;
+import sage.model.Deadline;
+import sage.model.TaskList;
+import sage.parser.Parser;
+import sage.storage.Storage;
+import sage.ui.Ui;
 
 /** Command that creates and saves a Deadline task. */
 public class AddDeadlineCommand extends Command {

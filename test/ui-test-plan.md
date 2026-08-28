@@ -11,7 +11,7 @@ Dates and times are treated as strings; no date/time conversion is expected.
 Launch command:
 
 ```text
-javac -d build/classes/java/main src/main/java/*.java && java -cp build/classes/java/main Sage
+javac -d build/classes/java/main $(find src/main/java -name '*.java') && java -cp build/classes/java/main sage.Sage
 ```
 
 The standard startup banner is expected at the beginning of every session:

@@ -1,7 +1,19 @@
+package sage;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import sage.command.Command;
+import sage.exception.SageException;
+import sage.model.Deadline;
+import sage.model.Event;
+import sage.model.Task;
+import sage.model.TaskList;
+import sage.parser.Parser;
+import sage.storage.Storage;
+import sage.ui.Ui;
 
 /**
  * Starts the Sage chatbot application.

@@ -1,3 +1,5 @@
+package sage.ui;
+
 import java.util.Scanner;
 
 /**

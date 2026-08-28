@@ -1,5 +1,14 @@
+package sage.command;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
+
+import sage.exception.SageException;
+import sage.model.Event;
+import sage.model.TaskList;
+import sage.parser.Parser;
+import sage.storage.Storage;
+import sage.ui.Ui;
 
 /** Command that creates and saves an Event task. */
 public class AddEventCommand extends Command {

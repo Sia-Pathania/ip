@@ -1,4 +1,11 @@
+package sage.command;
+
 import java.io.IOException;
+
+import sage.exception.SageException;
+import sage.model.TaskList;
+import sage.storage.Storage;
+import sage.ui.Ui;
 
 /** Represents one executable user command. */
 public abstract class Command {
