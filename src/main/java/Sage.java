@@ -40,10 +40,8 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("mark")) {
-                        String taskNumberText = parser.getArguments(command);
-
                         try {
-                            int taskNumber = Integer.parseInt(taskNumberText);
+                            int taskNumber = parser.parseTaskNumber(command);
                             int taskIndex = taskNumber - 1;
 
                             if (taskIndex < 0 || taskIndex >= tasks.size()) {
@@ -65,10 +63,8 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("unmark")) {
-                        String taskNumberText = parser.getArguments(command);
-
                         try {
-                            int taskNumber = Integer.parseInt(taskNumberText);
+                            int taskNumber = parser.parseTaskNumber(command);
                             int taskIndex = taskNumber - 1;
 
                             if (taskIndex < 0 || taskIndex >= tasks.size()) {
@@ -217,7 +213,7 @@ public class Sage {
                         }
 
                     } else if (commandName.equals("delete")) {
-                        int taskNumber = Integer.parseInt(parser.getArguments(command));
+                        int taskNumber = parser.parseTaskNumber(command);
                         int taskIndex = taskNumber - 1;
 
                         if (taskIndex < 0 || taskIndex >= tasks.size()) {
