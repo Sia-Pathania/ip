@@ -16,6 +16,7 @@ public class Sage {
      */
     public static void main(String[] args) throws IOException {
         Ui ui = new Ui();
+        Parser parser = new Parser();
         ui.showWelcome();
         Storage storage = new Storage("data/sage.txt");
         TaskList tasks = new TaskList(storage.load());
@@ -24,20 +25,21 @@ public class Sage {
             String command;
             while ((command = ui.readCommand()) != null) {
                 ui.showDivider();
+                String commandName = parser.getCommandName(command);
 
                 try {
-                    if (command.equals("bye")) {
+                    if (commandName.equals("bye")) {
                         System.out.println("Bye. Hope to see you again soon!");
                         ui.showDivider();
                         break;
 
-                    } else if (command.equals("list")) {
+                    } else if (commandName.equals("list")) {
                         System.out.println("Here are the tasks in your list:");
                         for (int index = 0; index < tasks.size(); index++) {
                             System.out.println((index + 1) + "." + tasks.get(index));
                         }
 
-                    } else if (command.startsWith("mark ")) {
+                    } else if (commandName.equals("mark")) {
                         String taskNumberText = command.substring(5);
 
                         try {
@@ -62,7 +64,7 @@ public class Sage {
                             );
                         }
 
-                    } else if (command.startsWith("unmark ")) {
+                    } else if (commandName.equals("unmark")) {
                         String taskNumberText = command.substring(7);
 
                         try {
@@ -86,7 +88,7 @@ public class Sage {
                             );
                         }
 
-                    } else if (command.equals("deadline") || command.startsWith("deadline ")) {
+                    } else if (commandName.equals("deadline")) {
                         String deadlineDetails = command.length() > 8
                                 ? command.substring(9)
                                 : "";
@@ -133,7 +135,7 @@ public class Sage {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
 
-                    } else if (command.equals("todo") || command.startsWith("todo ")) {
+                    } else if (commandName.equals("todo")) {
                         String description = command.length() > 4
                                 ? command.substring(5).trim()
                                 : "";
@@ -157,7 +159,7 @@ public class Sage {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
 
-                    }else if (command.equals("event") || command.startsWith("event ")) {
+                    }else if (commandName.equals("event")) {
                         String eventDetails = command.length() > 5
                                 ? command.substring(6)
                                 : "";
@@ -220,7 +222,7 @@ public class Sage {
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         }
 
-                    } else if (command.startsWith("delete ")) {
+                    } else if (commandName.equals("delete")) {
                         int taskNumber = Integer.parseInt(command.substring(7));
                         int taskIndex = taskNumber - 1;
 
@@ -238,7 +240,7 @@ public class Sage {
                         System.out.println("Noted. I've removed this task:");
                         System.out.println("  " + deletedTask);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    } else if (command.startsWith("on ")) {
+                    } else if (commandName.equals("on")) {
                         String dateInput = command.substring(3);
 
                         DateTimeFormatter formatter =
