@@ -1,6 +1,7 @@
 package sage.ui;
 
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 /**
  * Handles all direct interaction between Sage and the user.
@@ -15,10 +16,18 @@ public class Ui implements AutoCloseable {
             + "             |___/      \n";
 
     private final Scanner scanner;
+    private final Consumer<String> output;
 
     /** Creates a UI that reads commands from standard input. */
     public Ui() {
         scanner = new Scanner(System.in);
+        output = System.out::println;
+    }
+
+    /** Creates a UI that sends displayed messages to the supplied consumer. */
+    public Ui(Consumer<String> output) {
+        scanner = new Scanner(System.in);
+        this.output = output;
     }
 
     /** Displays Sage's standard welcome message. */
@@ -39,7 +48,7 @@ public class Ui implements AutoCloseable {
 
     /** Displays one line of text to the user. */
     public void show(String message) {
-        System.out.println(message);
+        output.accept(message);
     }
 
     /** Returns the next command, or {@code null} when input has ended. */

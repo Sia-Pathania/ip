@@ -14,6 +14,7 @@ import sage.command.FindCommand;
 import sage.command.ListCommand;
 import sage.command.MarkCommand;
 import sage.command.UnmarkCommand;
+import sage.command.OnCommand;
 import sage.exception.SageException;
 
 /**
@@ -54,6 +55,9 @@ public class Parser {
         }
         if (commandName.equals("delete")) {
             return new DeleteCommand(command);
+        }
+        if (commandName.equals("on")) {
+            return new OnCommand(getDateInput(command));
         }
         return null;
     }
