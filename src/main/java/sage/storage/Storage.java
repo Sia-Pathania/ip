@@ -19,6 +19,12 @@ import sage.model.Todo;
 /** Reads and writes Sage tasks to a local text file. */
 
 public class Storage {
+    private static final String DEADLINE_TYPE = "D";
+    private static final String EVENT_TYPE = "E";
+    private static final String TODO_TYPE = "T";
+    private static final String DONE_STATUS = "1";
+    private static final String NOT_DONE_STATUS = "0";
+
     private final Path filePath;
 
     /** Creates storage backed by the supplied file path. */
@@ -37,29 +43,27 @@ public class Storage {
             parent.mkdirs();
         }
 
-        FileWriter writer = new FileWriter(file);
+        try (FileWriter writer = new FileWriter(file)) {
+            for (Task task : tasks) {
+                String type;
+                String details = "";
 
-        for (Task task : tasks) {
-            String type;
-            String details = "";
+                if (task instanceof Deadline) {
+                    type = DEADLINE_TYPE;
+                    details = ((Deadline) task).getBy().toString();
+                } else if (task instanceof Event) {
+                    type = EVENT_TYPE;
+                    details = ((Event) task).getFrom().toString() + "|"
+                            + ((Event) task).getTo().toString();
+                } else {
+                    type = TODO_TYPE;
+                }
 
-            if (task instanceof Deadline) {
-                type = "D";
-                details = ((Deadline) task).getBy().toString();
-            } else if (task instanceof Event) {
-                type = "E";
-                details = ((Event) task).getFrom().toString() + "|"
-                        + ((Event) task).getTo().toString();
-            } else {
-                type = "T";
+                writer.write(type + "|" + (task.isDone() ? DONE_STATUS : NOT_DONE_STATUS) + "|"
+                        + task.getDescription() + "|" + details);
+                writer.write(System.lineSeparator());
             }
-
-            writer.write(type + "|" + (task.isDone() ? "1" : "0") + "|"
-                    + task.getDescription() + "|" + details);
-            writer.write(System.lineSeparator());
         }
-
-        writer.close();
     }
 
 
@@ -78,20 +82,20 @@ public class Storage {
                 continue;
             }
             Task task;
-            if (parts[0].equals("D")) {
+            if (parts[0].equals(DEADLINE_TYPE)) {
                 LocalDateTime dateTime = LocalDateTime.parse(parts[3]);
                 task = new Deadline(parts[2], dateTime);
-            } else if (parts[0].equals("E") && parts.length >= 5) {
+            } else if (parts[0].equals(EVENT_TYPE) && parts.length >= 5) {
                 LocalDateTime from = LocalDateTime.parse(parts[3]);
                 LocalDateTime to = LocalDateTime.parse(parts[4]);
                 task = new Event(parts[2], from, to);
-            } else if (parts[0].equals("T")) {
+            } else if (parts[0].equals(TODO_TYPE)) {
                 task = new Todo(parts[2]);
             } else {
                 continue;
             }
 
-            if (parts[1].equals("1")) {
+            if (parts[1].equals(DONE_STATUS)) {
                 task.markAsDone();
             }
             tasks.add(task);

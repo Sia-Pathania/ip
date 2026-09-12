@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 /** Represents a task that must be completed by a specified date and time. */
 public class Deadline extends Task {
+    private static final DateTimeFormatter DISPLAY_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mma");
+
     private final LocalDateTime by;
 
     /** Creates a deadline with its description and due date. */
@@ -21,10 +24,7 @@ public class Deadline extends Task {
     /** Returns this deadline in Sage's display format. */
     @Override
     public String toString() {
-        DateTimeFormatter formatter =
-                DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mma");
-
         return "[D]" + super.toString()
-                + " (by: " + by.format(formatter) + ")";
+                + " (by: " + by.format(DISPLAY_FORMATTER) + ")";
     }
 }
