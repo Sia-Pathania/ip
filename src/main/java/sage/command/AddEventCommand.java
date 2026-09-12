@@ -23,6 +23,7 @@ public class AddEventCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, SageException {
         Parser parser = new Parser();
         String[] parts = parser.parseEventDetails(details);
+        assert parts.length == 3;
         LocalDateTime from = parser.parseDateTime(parts[1]);
         LocalDateTime to = parser.parseDateTime(parts[2]);
         tasks.add(new Event(parts[0], from, to));
