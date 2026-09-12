@@ -277,3 +277,66 @@ bye
 ```text
 Please provide a keyword to find, like `find book`.
 ```
+
+## Test case 13: Finding duplicate tasks
+
+**Aim:** Verify that `duplicates` reports duplicate Todo, Deadline, and Event tasks, ignoring completion status and normalizing descriptions.
+
+**Input:**
+```text
+todo  read   book
+todo read book
+deadline submit report /by Friday
+deadline SUBMIT REPORT /by Friday
+event team meeting /from Monday 10am /to Monday 11am
+event  team   meeting  /from Monday 10am /to Monday 11am
+mark 2
+duplicates
+bye
+```
+
+**Expected output:**
+```text
+Here are the duplicate task groups in your list:
+Group:
+1.[T][ ]  read   book
+2.[T][X] read book
+Group:
+3.[D][ ] submit report (by: Friday)
+4.[D][ ] SUBMIT REPORT (by: Friday)
+Group:
+5.[E][ ] team meeting (from: Monday 10am to Monday 11am)
+6.[E][ ]  team   meeting  (from: Monday 10am to Monday 11am)
+```
+
+## Test case 14: No duplicate tasks
+
+**Aim:** Verify that tasks with different time ranges are not reported as duplicates.
+
+**Input:**
+```text
+deadline submit report /by Friday
+deadline submit report /by Monday
+duplicates
+bye
+```
+
+**Expected output:**
+```text
+There are no duplicate tasks.
+```
+
+## Test case 15: Duplicate command with arguments
+
+**Aim:** Verify that `duplicates` rejects unexpected arguments.
+
+**Input:**
+```text
+duplicates extra
+bye
+```
+
+**Expected output:**
+```text
+The duplicates command does not accept arguments. Please use `duplicates`.
+```

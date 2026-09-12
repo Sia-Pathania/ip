@@ -9,6 +9,7 @@ import sage.command.AddEventCommand;
 import sage.command.AddTodoCommand;
 import sage.command.Command;
 import sage.command.DeleteCommand;
+import sage.command.DuplicatesCommand;
 import sage.command.ExitCommand;
 import sage.command.FindCommand;
 import sage.command.ListCommand;
@@ -43,6 +44,7 @@ public class Parser {
         case "mark" -> new MarkCommand(command);
         case "unmark" -> new UnmarkCommand(command);
         case "delete" -> new DeleteCommand(command);
+        case "duplicates" -> new DuplicatesCommand(getArguments(command));
         case "on" -> new OnCommand(getDateInput(command));
         default -> null;
         };
