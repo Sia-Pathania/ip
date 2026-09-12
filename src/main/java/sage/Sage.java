@@ -18,7 +18,9 @@ public class Sage {
     private final TaskList tasks;
 
     /** Creates Sage using the default persistent task file. */
-    public Sage() throws IOException { this("data/sage.txt"); }
+    public Sage() throws IOException {
+        this("data/sage.txt");
+    }
 
     /** Creates Sage using a supplied persistent task file. */
     public Sage(String filePath) throws IOException {
@@ -34,7 +36,8 @@ public class Sage {
         try {
             Command command = parser.parseCommand(input);
             if (command == null) {
-                messages.add("I didn't quite catch that. You can add a todo, deadline, or event whenever you're ready. Could you try again?");
+                messages.add("I didn't quite catch that. You can add a todo, deadline, or event "
+                        + "whenever you're ready. Could you try again?");
             } else {
                 command.execute(tasks, output, storage);
             }
@@ -45,7 +48,9 @@ public class Sage {
     }
 
     /** Returns whether the supplied input is the exit command. */
-    public boolean isExitCommand(String input) { return parser.getCommandName(input).equals("bye"); }
+    public boolean isExitCommand(String input) {
+        return parser.getCommandName(input).equals("bye");
+    }
 
     /** Runs the terminal interface. */
     public static void main(String[] args) throws IOException {
@@ -57,9 +62,13 @@ public class Sage {
             while ((input = ui.readCommand()) != null) {
                 ui.showDivider();
                 String response = sage.processCommand(input);
-                if (!response.isEmpty()) { ui.show(response.replace(System.lineSeparator(), "\n")); }
+                if (!response.isEmpty()) {
+                    ui.show(response.replace(System.lineSeparator(), "\n"));
+                }
                 ui.showDivider();
-                if (sage.isExitCommand(input)) { break; }
+                if (sage.isExitCommand(input)) {
+                    break;
+                }
             }
         }
     }
