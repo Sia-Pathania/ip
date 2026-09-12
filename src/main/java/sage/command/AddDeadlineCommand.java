@@ -23,6 +23,7 @@ public class AddDeadlineCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, SageException {
         Parser parser = new Parser();
         String[] parts = parser.parseDeadlineDetails(details);
+        assert parts.length == 2;
         LocalDateTime dateTime = parser.parseDateTime(parts[1]);
         tasks.add(new Deadline(parts[0], dateTime));
         storage.save(tasks);

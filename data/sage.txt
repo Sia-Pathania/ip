@@ -1,3 +1,6 @@
 E|0|project meeting|2019-12-02T18:00|2019-12-02T20:00
 D|0|return book|2019-12-02T18:00
 D|0|return book|2019-12-02T18:00
+T|0|lectures|
+T|0|cs2103t|
+T|0|lectures|
