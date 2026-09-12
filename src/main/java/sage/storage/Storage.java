@@ -16,8 +16,6 @@ import sage.model.TaskList;
 import sage.model.Todo;
 
 
-/** Loads tasks from and saves tasks to Sage's data file. */
-
 /** Reads and writes Sage tasks to a local text file. */
 
 public class Storage {
@@ -28,8 +26,6 @@ public class Storage {
         this.filePath = Paths.get(filePath);
     }
 
-
-    /** Saves all tasks and their completion states to the data file. */
 
     /** Saves all tasks in the list to disk. */
 
