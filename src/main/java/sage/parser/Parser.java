@@ -21,6 +21,10 @@ import sage.exception.SageException;
  * Makes the command name in a user's input available to the application.
  */
 public class Parser {
+    private static final String BY_COMMAND = "by";
+    private static final String FROM_COMMAND = "from";
+    private static final String TO_COMMAND = "to";
+
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private static final DateTimeFormatter DATE_FORMATTER =
@@ -29,37 +33,19 @@ public class Parser {
     /** Creates the command object corresponding to the user's input. */
     public Command parseCommand(String command) {
         String commandName = getCommandName(command);
-        if (commandName.equals("bye")) {
-            return new ExitCommand();
-        }
-        if (commandName.equals("list")) {
-            return new ListCommand();
-        }
-        if (commandName.equals("find")) {
-            return new FindCommand(getArguments(command));
-        }
-        if (commandName.equals("todo")) {
-            return new AddTodoCommand(getTodoDescription(command));
-        }
-        if (commandName.equals("deadline")) {
-            return new AddDeadlineCommand(getDeadlineDetails(command));
-        }
-        if (commandName.equals("event")) {
-            return new AddEventCommand(getEventDetails(command));
-        }
-        if (commandName.equals("mark")) {
-            return new MarkCommand(command);
-        }
-        if (commandName.equals("unmark")) {
-            return new UnmarkCommand(command);
-        }
-        if (commandName.equals("delete")) {
-            return new DeleteCommand(command);
-        }
-        if (commandName.equals("on")) {
-            return new OnCommand(getDateInput(command));
-        }
-        return null;
+        return switch (commandName) {
+        case "bye" -> new ExitCommand();
+        case "list" -> new ListCommand();
+        case "find" -> new FindCommand(getArguments(command));
+        case "todo" -> new AddTodoCommand(getTodoDescription(command));
+        case "deadline" -> new AddDeadlineCommand(getDeadlineDetails(command));
+        case "event" -> new AddEventCommand(getEventDetails(command));
+        case "mark" -> new MarkCommand(command);
+        case "unmark" -> new UnmarkCommand(command);
+        case "delete" -> new DeleteCommand(command);
+        case "on" -> new OnCommand(getDateInput(command));
+        default -> null;
+        };
     }
 
     /**
@@ -133,7 +119,7 @@ public class Parser {
      * @throws SageException when a required field is missing
      */
     public String[] parseDeadlineDetails(String details) throws SageException {
-        int byIndex = details.indexOf(" /by ");
+        int byIndex = details.indexOf(" /" + BY_COMMAND + " ");
         if (byIndex == -1) {
             throw new SageException(
                     "Your deadline is missing a /by date or time. Could you try again?");
@@ -143,7 +129,7 @@ public class Parser {
             throw new SageException(
                     "Your deadline needs a description. What would you like to add?");
         }
-        String by = details.substring(byIndex + 5);
+        String by = details.substring(byIndex + BY_COMMAND.length() + 3);
         if (by.isBlank()) {
             throw new SageException(
                     "Your deadline needs a date or time after /by. Could you try again?");
@@ -157,8 +143,8 @@ public class Parser {
      * @throws SageException when a required field is missing
      */
     public String[] parseEventDetails(String details) throws SageException {
-        int fromIndex = details.indexOf("/from ");
-        int toIndex = details.indexOf("/to ");
+        int fromIndex = details.indexOf("/" + FROM_COMMAND + " ");
+        int toIndex = details.indexOf("/" + TO_COMMAND + " ");
         if (fromIndex == -1) {
             throw new SageException(
                     "Your event is missing a /from start time. Could you try again?");
@@ -172,8 +158,8 @@ public class Parser {
             throw new SageException(
                     "Your event needs a description. What would you like to add?");
         }
-        String from = details.substring(fromIndex + 6, toIndex).trim();
-        String to = details.substring(toIndex + 4).trim();
+        String from = details.substring(fromIndex + FROM_COMMAND.length() + 2, toIndex).trim();
+        String to = details.substring(toIndex + TO_COMMAND.length() + 2).trim();
         if (from.isBlank()) {
             throw new SageException(
                     "Your event needs a start time after /from. Could you try again?");

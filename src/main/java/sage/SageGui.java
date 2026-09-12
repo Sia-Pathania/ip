@@ -40,11 +40,15 @@ public class SageGui extends Application {
 
     private void send(TextField input) {
         String command = input.getText().trim();
-        if (command.isEmpty()) { return; }
+        if (command.isEmpty()) {
+            return;
+        }
         conversation.appendText("You:\n" + command + "\n\nSage:\n");
         try {
             conversation.appendText(sage.processCommand(command) + "\n\n");
-            if (sage.isExitCommand(command)) { conversation.getScene().getWindow().hide(); }
+            if (sage.isExitCommand(command)) {
+                conversation.getScene().getWindow().hide();
+            }
         } catch (IOException e) {
             conversation.appendText("I couldn't save your tasks right now.\n\n");
         }

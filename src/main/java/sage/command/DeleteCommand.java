@@ -20,7 +20,12 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, SageException {
-        int number = new Parser().parseTaskNumber(input);
+        int number;
+        try {
+            number = new Parser().parseTaskNumber(input);
+        } catch (NumberFormatException e) {
+            throw new SageException("The task number should be a number, like `delete 2`.");
+        }
         if (number < 1 || number > tasks.size()) {
             throw new SageException("I couldn't find task " + number
                     + ". Please choose a task number from your list.");
