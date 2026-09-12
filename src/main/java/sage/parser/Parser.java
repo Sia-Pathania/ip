@@ -29,37 +29,19 @@ public class Parser {
     /** Creates the command object corresponding to the user's input. */
     public Command parseCommand(String command) {
         String commandName = getCommandName(command);
-        if (commandName.equals("bye")) {
-            return new ExitCommand();
-        }
-        if (commandName.equals("list")) {
-            return new ListCommand();
-        }
-        if (commandName.equals("find")) {
-            return new FindCommand(getArguments(command));
-        }
-        if (commandName.equals("todo")) {
-            return new AddTodoCommand(getTodoDescription(command));
-        }
-        if (commandName.equals("deadline")) {
-            return new AddDeadlineCommand(getDeadlineDetails(command));
-        }
-        if (commandName.equals("event")) {
-            return new AddEventCommand(getEventDetails(command));
-        }
-        if (commandName.equals("mark")) {
-            return new MarkCommand(command);
-        }
-        if (commandName.equals("unmark")) {
-            return new UnmarkCommand(command);
-        }
-        if (commandName.equals("delete")) {
-            return new DeleteCommand(command);
-        }
-        if (commandName.equals("on")) {
-            return new OnCommand(getDateInput(command));
-        }
-        return null;
+        return switch (commandName) {
+        case "bye" -> new ExitCommand();
+        case "list" -> new ListCommand();
+        case "find" -> new FindCommand(getArguments(command));
+        case "todo" -> new AddTodoCommand(getTodoDescription(command));
+        case "deadline" -> new AddDeadlineCommand(getDeadlineDetails(command));
+        case "event" -> new AddEventCommand(getEventDetails(command));
+        case "mark" -> new MarkCommand(command);
+        case "unmark" -> new UnmarkCommand(command);
+        case "delete" -> new DeleteCommand(command);
+        case "on" -> new OnCommand(getDateInput(command));
+        default -> null;
+        };
     }
 
     /**
