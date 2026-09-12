@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 /** Represents a task that takes place during a specified time range. */
 
 public class Event extends Task {
+    private static final DateTimeFormatter DISPLAY_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mma");
+
     private final LocalDateTime from;
     private final LocalDateTime to;
 
@@ -36,11 +39,8 @@ public class Event extends Task {
     /** Returns this event in Sage's display format. */
     @Override
     public String toString() {
-        DateTimeFormatter formatter =
-                DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mma");
-
         return "[E]" + super.toString()
-                + " (from: " + from.format(formatter)
-                + " to: " + to.format(formatter) + ")";
+                + " (from: " + from.format(DISPLAY_FORMATTER)
+                + " to: " + to.format(DISPLAY_FORMATTER) + ")";
     }
 }
