@@ -6,7 +6,9 @@ For each case, run from a fresh temporary working directory so the relative
 `data/sage.txt` file starts empty. This also verifies that the data directory
 is created automatically.
 
-Dates and times are treated as strings; no date/time conversion is expected.
+Deadlines and event times are parsed as calendar dates and times. Users can enter
+date-times in `d/M/yyyy HHmm` format, such as `2/12/2019 1800`, and Sage
+displays them as `MMM dd yyyy, hh:mma`.
 
 Launch command:
 
@@ -270,7 +272,26 @@ An event's end time must be later than its start time.
 Bye. Hope to see you again soon!
 ```
 
-## Test case 11: Rejecting duplicate tasks
+## Test case 11: Finding deadlines and events on a date
+
+**Aim:** Verify that `on` displays deadlines and events occurring on a specific date.
+
+**Input:**
+```text
+deadline submit report /by 2/12/2019 1800
+event team meeting /from 2019-12-02 1000 /to 2019-12-02 1100
+on 2019-12-02
+bye
+```
+
+**Expected output:**
+```text
+  [D][ ] submit report (by: Dec 02 2019, 06:00pm)
+  [E][ ] team meeting (from: Dec 02 2019, 10:00am to Dec 02 2019, 11:00am)
+Bye. Hope to see you again soon!
+```
+
+## Test case 12: Rejecting duplicate tasks
 
 **Aim:** Verify that an identical task is not added twice.
 

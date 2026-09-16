@@ -30,8 +30,12 @@ public class Parser {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern("d/M/uuuu HHmm").withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter ISO_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm").withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter ISO_DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
 
     /** Creates the command object corresponding to the user's input. */
     public Command parseCommand(String command) throws SageException {
@@ -118,20 +122,28 @@ public class Parser {
 
     /** Parses a deadline or event date and time. */
     public LocalDateTime parseDateTime(String dateTime) throws SageException {
-        try {
-            return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new SageException("Please enter a valid date and time in the format d/M/yyyy HHmm.");
+        DateTimeFormatter[] formatters = {DATE_TIME_FORMATTER, ISO_DATE_TIME_FORMATTER};
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDateTime.parse(dateTime, formatter);
+            } catch (DateTimeParseException e) {
+                // Try the next supported date-time format.
+            }
         }
+        throw new SageException("Please enter a valid date and time in the format d/M/yyyy HHmm.");
     }
 
     /** Parses a date used by the {@code on} command. */
     public LocalDate parseDate(String date) throws SageException {
-        try {
-            return LocalDate.parse(date, DATE_FORMATTER);
-        } catch (DateTimeParseException e) {
-            throw new SageException("Please enter a valid date in the format d/M/yyyy.");
+        DateTimeFormatter[] formatters = {DATE_FORMATTER, ISO_DATE_FORMATTER};
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDate.parse(date, formatter);
+            } catch (DateTimeParseException e) {
+                // Try the next supported date format.
+            }
         }
+        throw new SageException("Please enter a valid date in the format d/M/yyyy or yyyy-MM-dd.");
     }
 
     /**
