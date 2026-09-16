@@ -26,7 +26,14 @@ public class AddEventCommand extends Command {
         assert parts.length == 3;
         LocalDateTime from = parser.parseDateTime(parts[1]);
         LocalDateTime to = parser.parseDateTime(parts[2]);
-        tasks.add(new Event(parts[0], from, to));
+        if (!from.isBefore(to)) {
+            throw new SageException("An event's end time must be later than its start time.");
+        }
+        Event event = new Event(parts[0], from, to);
+        if (tasks.containsEquivalent(event)) {
+            throw new SageException("This task is already in your list.");
+        }
+        tasks.add(event);
         storage.save(tasks);
         ui.show("Got it. I've added this task:");
         ui.show("  " + tasks.get(tasks.size() - 1));

@@ -24,4 +24,25 @@ public class TaskList extends ArrayList<Task> {
     public TaskList(Collection<Task> tasks) {
         super(tasks);
     }
+
+    /** Returns whether this list already contains a task with identical details. */
+    public boolean containsEquivalent(Task candidate) {
+        for (Task task : this) {
+            if (task.getClass() != candidate.getClass()
+                    || !task.getDescription().equals(candidate.getDescription())) {
+                continue;
+            }
+            if (task instanceof Deadline && ((Deadline) task).getBy().equals(((Deadline) candidate).getBy())) {
+                return true;
+            }
+            if (task instanceof Event && ((Event) task).getFrom().equals(((Event) candidate).getFrom())
+                    && ((Event) task).getTo().equals(((Event) candidate).getTo())) {
+                return true;
+            }
+            if (task instanceof Todo) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

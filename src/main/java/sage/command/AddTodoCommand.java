@@ -24,7 +24,11 @@ public class AddTodoCommand extends Command {
                     "Your todo needs a description. What would you like to add?");
         }
 
-        tasks.add(new Todo(description));
+        Todo todo = new Todo(description);
+        if (tasks.containsEquivalent(todo)) {
+            throw new SageException("This task is already in your list.");
+        }
+        tasks.add(todo);
         storage.save(tasks);
 
         ui.show("Got it. I've added this task:");

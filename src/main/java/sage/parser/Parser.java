@@ -3,6 +3,8 @@ package sage.parser;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import sage.command.AddDeadlineCommand;
 import sage.command.AddEventCommand;
@@ -27,12 +29,15 @@ public class Parser {
     private static final String TO_COMMAND = "to";
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            DateTimeFormatter.ofPattern("d/M/uuuu HHmm").withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter DATE_FORMATTER =
-            DateTimeFormatter.ofPattern("d/M/yyyy");
+            DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 
     /** Creates the command object corresponding to the user's input. */
     public Command parseCommand(String command) {
+        if (command == null) {
+            return null;
+        }
         String commandName = getCommandName(command);
         return switch (commandName) {
         case "bye" -> new ExitCommand();
@@ -82,7 +87,11 @@ public class Parser {
      * @throws NumberFormatException when the argument is not numeric
      */
     public int parseTaskNumber(String command) {
-        return Integer.parseInt(getArguments(command));
+        String arguments = getArguments(command);
+        if (!arguments.matches("\\d+")) {
+            throw new NumberFormatException();
+        }
+        return Integer.parseInt(arguments);
     }
 
     /** Returns the Todo description supplied by the user. */
@@ -106,13 +115,21 @@ public class Parser {
     }
 
     /** Parses a deadline or event date and time. */
-    public LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
+    public LocalDateTime parseDateTime(String dateTime) throws SageException {
+        try {
+            return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new SageException("Please enter a valid date and time in the format d/M/yyyy HHmm.");
+        }
     }
 
     /** Parses a date used by the {@code on} command. */
-    public LocalDate parseDate(String date) {
-        return LocalDate.parse(date, DATE_FORMATTER);
+    public LocalDate parseDate(String date) throws SageException {
+        try {
+            return LocalDate.parse(date, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new SageException("Please enter a valid date in the format d/M/yyyy.");
+        }
     }
 
     /**
@@ -132,6 +149,9 @@ public class Parser {
                     "Your deadline needs a description. What would you like to add?");
         }
         String by = details.substring(byIndex + BY_COMMAND.length() + 3);
+        if (details.indexOf(" /" + BY_COMMAND + " ", byIndex + 1) != -1) {
+            throw new SageException("A deadline can only have one /by date or time.");
+        }
         if (by.isBlank()) {
             throw new SageException(
                     "Your deadline needs a date or time after /by. Could you try again?");
@@ -162,6 +182,10 @@ public class Parser {
         }
         String from = details.substring(fromIndex + FROM_COMMAND.length() + 2, toIndex).trim();
         String to = details.substring(toIndex + TO_COMMAND.length() + 2).trim();
+        if (details.indexOf("/" + FROM_COMMAND + " ", fromIndex + 1) != -1
+                || details.indexOf("/" + TO_COMMAND + " ", toIndex + 1) != -1) {
+            throw new SageException("An event can only have one /from and one /to time.");
+        }
         if (from.isBlank()) {
             throw new SageException(
                     "Your event needs a start time after /from. Could you try again?");

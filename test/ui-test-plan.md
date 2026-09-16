@@ -219,6 +219,41 @@ Here are the tasks in your list:
 ____________________________________________________________
 ```
 
+## Test case 10: Rejecting invalid dates and event ranges
+
+**Aim:** Verify that invalid calendar dates and non-increasing event times are reported without crashing.
+
+**Input:**
+```text
+deadline submit report /by 30/2/2025 1200
+event planning /from 2/3/2025 1200 /to 2/3/2025 1100
+bye
+```
+
+**Expected output:**
+```text
+Please enter a valid date and time in the format d/M/yyyy HHmm.
+An event's end time must be later than its start time.
+Bye. Hope to see you again soon!
+```
+
+## Test case 11: Rejecting duplicate tasks
+
+**Aim:** Verify that an identical task is not added twice.
+
+**Input:**
+```text
+todo read book
+todo read book
+bye
+```
+
+**Expected output:**
+```text
+This task is already in your list.
+Bye. Hope to see you again soon!
+```
+
 **Expected output:**
 ```text
 ____________________________________________________________
