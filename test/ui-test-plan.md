@@ -298,7 +298,40 @@ Here are the matching tasks in your list:
 There are no tasks matching "holiday".
 ```
 
-## Test case 12: Finding without a keyword
+## Test case 12: Allowing punctuation in task descriptions
+
+**Aim:** Verify that task descriptions may contain punctuation.
+
+**Input:**
+```text
+todo buy milk!
+bye
+```
+
+**Expected output:**
+```text
+Got it. I've added this task:
+  [T][ ] buy milk!
+Now you have 1 task in the list.
+Bye. Hope to see you again soon!
+```
+
+## Test case 13: Rejecting repeated spaces in task descriptions
+
+**Aim:** Verify that task descriptions require single spaces between words.
+
+**Input:**
+```text
+todo buy  milk
+bye
+```
+
+**Expected output:**
+```text
+Task descriptions may contain only letters, numbers, and single spaces.
+```
+
+## Test case 14: Finding without a keyword
 
 **Aim:** Verify that `find` without a keyword reports a helpful error.
 
@@ -313,18 +346,18 @@ bye
 Please provide a keyword to find, like `find book`.
 ```
 
-## Test case 13: Finding duplicate tasks
+## Test case 15: Finding duplicate tasks
 
 **Aim:** Verify that `duplicates` reports duplicate Todo, Deadline, and Event tasks, ignoring completion status and normalizing descriptions.
 
 **Input:**
 ```text
-todo  read   book
+todo read book
 todo read book
 deadline submit report /by Friday
 deadline SUBMIT REPORT /by Friday
 event team meeting /from Monday 10am /to Monday 11am
-event  team   meeting  /from Monday 10am /to Monday 11am
+event team meeting /from Monday 10am /to Monday 11am
 mark 2
 duplicates
 bye
@@ -334,17 +367,17 @@ bye
 ```text
 Here are the duplicate task groups in your list:
 Group:
-1.[T][ ]  read   book
+1.[T][ ] read book
 2.[T][X] read book
 Group:
 3.[D][ ] submit report (by: Friday)
 4.[D][ ] SUBMIT REPORT (by: Friday)
 Group:
 5.[E][ ] team meeting (from: Monday 10am to Monday 11am)
-6.[E][ ]  team   meeting  (from: Monday 10am to Monday 11am)
+6.[E][ ] team meeting (from: Monday 10am to Monday 11am)
 ```
 
-## Test case 14: No duplicate tasks
+## Test case 16: No duplicate tasks
 
 **Aim:** Verify that tasks with different time ranges are not reported as duplicates.
 
@@ -361,7 +394,7 @@ bye
 There are no duplicate tasks.
 ```
 
-## Test case 15: Duplicate command with arguments
+## Test case 17: Duplicate command with arguments
 
 **Aim:** Verify that `duplicates` rejects unexpected arguments.
 
