@@ -441,3 +441,22 @@ bye
 ```text
 The duplicates command does not accept arguments. Please use `duplicates`.
 ```
+
+## Test case 18: Lowercase task commands
+
+**Aim:** Verify that Todo, Deadline, and Event commands using uppercase letters explain the lowercase requirement.
+
+**Input:**
+```text
+Todo read book
+Deadline submit report /by Friday
+EVENT team meeting /from Monday 10am /to Monday 11am
+bye
+```
+
+**Expected output:**
+```text
+The 'Todo' command must be lowercase. Please use 'todo'.
+The 'Deadline' command must be lowercase. Please use 'deadline'.
+The 'EVENT' command must be lowercase. Please use 'event'.
+```
