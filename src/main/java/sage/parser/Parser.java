@@ -34,7 +34,7 @@ public class Parser {
             DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT);
 
     /** Creates the command object corresponding to the user's input. */
-    public Command parseCommand(String command) {
+    public Command parseCommand(String command) throws SageException {
         if (command == null) {
             return null;
         }
@@ -95,8 +95,10 @@ public class Parser {
     }
 
     /** Returns the Todo description supplied by the user. */
-    public String getTodoDescription(String command) {
-        return getArguments(command);
+    public String getTodoDescription(String command) throws SageException {
+        String description = getArguments(command);
+        validateDescription(description);
+        return description;
     }
 
     /** Returns the raw Deadline details supplied by the user. */
@@ -144,10 +146,7 @@ public class Parser {
                     "Your deadline is missing a /by date or time. Could you try again?");
         }
         String description = details.substring(0, byIndex);
-        if (description.isBlank()) {
-            throw new SageException(
-                    "Your deadline needs a description. What would you like to add?");
-        }
+        validateDescription(description);
         String by = details.substring(byIndex + BY_COMMAND.length() + 3);
         if (details.indexOf(" /" + BY_COMMAND + " ", byIndex + 1) != -1) {
             throw new SageException("A deadline can only have one /by date or time.");
@@ -176,10 +175,7 @@ public class Parser {
                     "Your event is missing a /to end time. Could you try again?");
         }
         String description = details.substring(0, fromIndex).trim();
-        if (description.isBlank()) {
-            throw new SageException(
-                    "Your event needs a description. What would you like to add?");
-        }
+        validateDescription(description);
         String from = details.substring(fromIndex + FROM_COMMAND.length() + 2, toIndex).trim();
         String to = details.substring(toIndex + TO_COMMAND.length() + 2).trim();
         if (details.indexOf("/" + FROM_COMMAND + " ", fromIndex + 1) != -1
@@ -195,5 +191,16 @@ public class Parser {
                     "Your event needs an end time after /to. Could you try again?");
         }
         return new String[] {description, from, to};
+    }
+
+    /** Validates that a task description contains only words separated by single spaces. */
+    public void validateDescription(String description) throws SageException {
+        if (description.isBlank()) {
+            throw new SageException(
+                    "Your task needs a description. What would you like to add?");
+        }
+        if (!description.matches("[\\p{L}\\p{N}]+(?: [\\p{L}\\p{N}]+)*")) {
+            throw new SageException("Task descriptions may contain only letters, numbers, and single spaces.");
+        }
     }
 }
