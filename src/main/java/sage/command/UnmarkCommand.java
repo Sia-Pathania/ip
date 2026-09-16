@@ -31,6 +31,9 @@ public class UnmarkCommand extends Command {
                     + ". Please choose a task number from your list.");
         }
         Task task = tasks.get(number - 1);
+        if (!task.isDone()) {
+            throw new SageException("Task " + number + " is already marked as not done.");
+        }
         task.markAsNotDone();
         storage.save(tasks);
         ui.show("OK, I've marked this task as not done yet:");

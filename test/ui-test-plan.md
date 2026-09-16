@@ -177,6 +177,39 @@ ____________________________________________________________
 bye
 ```
 
+## Test case 7a: Rejecting a repeated mark command
+
+**Aim:** Verify that marking an already completed task reports that it is already done.
+
+**Input:**
+```text
+todo read book
+mark 1
+mark 1
+bye
+```
+
+**Expected output for the repeated command:**
+```text
+Task 1 is already marked as done.
+```
+
+## Test case 7b: Rejecting a repeated unmark command
+
+**Aim:** Verify that unmarking an already incomplete task reports that it is already not done.
+
+**Input:**
+```text
+todo read book
+unmark 1
+bye
+```
+
+**Expected output:**
+```text
+Task 1 is already marked as not done.
+```
+
 ## Test case 8: Deleting a task persists
 
 **Aim:** Verify that deleting a task is saved to disk.
