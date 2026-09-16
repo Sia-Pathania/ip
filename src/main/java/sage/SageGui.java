@@ -3,6 +3,7 @@ package sage;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,29 +22,37 @@ import javafx.stage.Stage;
 public class SageGui extends Application {
     private Sage sage;
     private VBox conversation;
+    private ScrollPane messageScroll;
 
     @Override
     public void start(Stage stage) throws IOException {
         sage = new Sage();
-        conversation = new VBox(12);
-        conversation.setPadding(new Insets(16));
+        conversation = new VBox(8);
+        conversation.setPadding(new Insets(10));
         conversation.setStyle("-fx-background-color: #f4f7fb;");
         addAppMessage("Hello! I'm Sage.\nI'm here whenever you feel like chatting!");
-        ScrollPane messageScroll = new ScrollPane(conversation);
+        messageScroll = new ScrollPane(conversation);
         messageScroll.setFitToWidth(true);
         messageScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        messageScroll.setStyle("-fx-background: #f4f7fb; -fx-background-color: #f4f7fb;");
+        messageScroll.setStyle("-fx-background: #f4f7fb; -fx-background-color: #f4f7fb;"
+                + " -fx-border-color: transparent;");
         TextField input = new TextField();
+        input.setPromptText("Type a command...");
+        input.setStyle("-fx-background-radius: 8; -fx-border-radius: 8;"
+                + " -fx-border-color: #cbd5e1; -fx-padding: 7 10 7 10;");
         Button send = new Button("Send");
+        send.setStyle("-fx-background-color: #315d85; -fx-text-fill: white;"
+                + " -fx-background-radius: 8; -fx-padding: 7 12 7 12;");
         send.setOnAction(event -> send(input));
         input.setOnAction(event -> send(input));
-        HBox controls = new HBox(8, input, send);
-        controls.setPadding(new Insets(8));
+        HBox controls = new HBox(6, input, send);
+        controls.setPadding(new Insets(6));
+        controls.setStyle("-fx-background-color: #ffffff; -fx-border-color: #d5dce5 transparent transparent transparent;");
         HBox.setHgrow(input, Priority.ALWAYS);
         BorderPane root = new BorderPane(messageScroll);
         root.setBottom(controls);
         stage.setTitle("Sage");
-        stage.setScene(new Scene(root, 600, 450));
+        stage.setScene(new Scene(root, 560, 420));
         stage.show();
     }
 
@@ -70,6 +79,7 @@ public class SageGui extends Application {
         HBox row = new HBox(bubble);
         row.setAlignment(Pos.CENTER_RIGHT);
         conversation.getChildren().add(row);
+        scrollToLatestMessage();
     }
 
     /** Adds a message from Sage to the left side of the conversation. */
@@ -78,18 +88,26 @@ public class SageGui extends Application {
         HBox row = new HBox(bubble);
         row.setAlignment(Pos.CENTER_LEFT);
         conversation.getChildren().add(row);
+        scrollToLatestMessage();
     }
 
     /** Creates a wrapped, styled message bubble with a readable maximum width. */
     private Label createMessageBubble(String message, String backgroundColor, String textColor) {
         Label bubble = new Label(message);
         bubble.setWrapText(true);
-        bubble.setMaxWidth(440);
-        bubble.setPadding(new Insets(10, 14, 10, 14));
+        bubble.maxWidthProperty().bind(conversation.widthProperty().multiply(0.9));
+        bubble.setPadding(new Insets(7, 10, 7, 10));
         bubble.setTextFill(Color.web(textColor));
         bubble.setStyle("-fx-background-color: " + backgroundColor
-                + "; -fx-background-radius: 14; -fx-border-radius: 14;"
+                + "; -fx-background-radius: 10; -fx-border-radius: 10;"
                 + " -fx-border-color: #d5dce5; -fx-border-width: 1;");
         return bubble;
+    }
+
+    /** Scrolls the conversation to the newest message after JavaFX lays it out. */
+    private void scrollToLatestMessage() {
+        if (messageScroll != null) {
+            Platform.runLater(() -> messageScroll.setVvalue(1.0));
+        }
     }
 }
