@@ -76,16 +76,17 @@ public class Storage {
                 continue;
             }
             Task task;
-            if (parts[0].equals(DEADLINE_TYPE)) {
-                LocalDateTime dateTime = LocalDateTime.parse(parts[3]);
-                task = new Deadline(parts[2], dateTime);
-            } else if (parts[0].equals(EVENT_TYPE) && parts.length >= 5) {
-                LocalDateTime from = LocalDateTime.parse(parts[3]);
-                LocalDateTime to = LocalDateTime.parse(parts[4]);
-                task = new Event(parts[2], from, to);
-            } else if (parts[0].equals(TODO_TYPE)) {
-                task = new Todo(parts[2]);
-            } else {
+            try {
+                if (parts[0].equals(DEADLINE_TYPE)) {
+                    task = new Deadline(parts[2], LocalDateTime.parse(parts[3]));
+                } else if (parts[0].equals(EVENT_TYPE) && parts.length >= 5) {
+                    task = new Event(parts[2], LocalDateTime.parse(parts[3]), LocalDateTime.parse(parts[4]));
+                } else if (parts[0].equals(TODO_TYPE)) {
+                    task = new Todo(parts[2]);
+                } else {
+                    continue;
+                }
+            } catch (RuntimeException e) {
                 continue;
             }
 

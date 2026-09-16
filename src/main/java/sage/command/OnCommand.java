@@ -26,7 +26,7 @@ public class OnCommand extends Command {
         LocalDate date;
         try {
             date = new Parser().parseDate(dateInput);
-        } catch (RuntimeException e) {
+        } catch (SageException e) {
             throw new SageException("Please enter a date in the format d/M/yyyy, like `on 25/12/2025`.");
         }
         boolean isFound = false;

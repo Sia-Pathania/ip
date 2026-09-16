@@ -43,6 +43,8 @@ public class Sage {
             }
         } catch (SageException e) {
             messages.add(e.getMessage());
+        } catch (IOException e) {
+            messages.add("I couldn't access the task file. Please check that it is readable and writable.");
         }
         return String.join(System.lineSeparator(), messages);
     }
