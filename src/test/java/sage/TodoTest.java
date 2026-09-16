@@ -1,8 +1,10 @@
-import org.junit.jupiter.api.Test;
-import sage.model.Todo;
+package sage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+import sage.model.Todo;
 class TodoTest {
 
     @Test

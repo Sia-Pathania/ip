@@ -29,7 +29,7 @@ public class OnCommand extends Command {
         } catch (RuntimeException e) {
             throw new SageException("Please enter a date in the format d/M/yyyy, like `on 25/12/2025`.");
         }
-        boolean found = false;
+        boolean isFound = false;
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
@@ -37,16 +37,16 @@ public class OnCommand extends Command {
                     continue;
                 }
                 ui.show(task.toString());
-                found = true;
+                isFound = true;
             } else if (task instanceof Event) {
                 Event event = (Event) task;
                 if (isOnDate(event, date)) {
                     ui.show(task.toString());
-                    found = true;
+                    isFound = true;
                 }
             }
         }
-        if (!found) {
+        if (!isFound) {
             ui.show("There are no deadlines or events on " + date + ".");
         }
     }

@@ -7,22 +7,16 @@ public class Task {
     private final String description;
     private boolean isDone;
 
-    /**
-     * Creates a task that is initially not done.
-     *
-     * @param description the task description
-     */
+    /** Creates a task that is initially not done. */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-
     /**
      * Marks this task as done.
      */
     public void markAsDone() {
-
         isDone = true;
     }
 
@@ -33,16 +27,12 @@ public class Task {
         isDone = false;
     }
 
-
     /** Returns this task's description. */
-
     public String getDescription() {
         return description;
     }
 
-
     /** Returns whether this task is marked as done. */
-
     public boolean isDone() {
         return isDone;
     }
@@ -65,5 +55,4 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
-
 }

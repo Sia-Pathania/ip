@@ -2,17 +2,13 @@ package sage.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-
 /** Represents a task that takes place during a specified time range. */
-
 public class Event extends Task {
     private static final DateTimeFormatter DISPLAY_FORMATTER =
             DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mma");
 
     private final LocalDateTime from;
     private final LocalDateTime to;
-
 
     /** Creates an event task. */
 
@@ -22,13 +18,11 @@ public class Event extends Task {
         this.to = to;
     }
 
-
     /** Returns the event start date and time. */
 
     public LocalDateTime getFrom() {
         return from;
     }
-
 
     /** Returns the event end date and time. */
 

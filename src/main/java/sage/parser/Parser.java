@@ -13,8 +13,8 @@ import sage.command.ExitCommand;
 import sage.command.FindCommand;
 import sage.command.ListCommand;
 import sage.command.MarkCommand;
-import sage.command.UnmarkCommand;
 import sage.command.OnCommand;
+import sage.command.UnmarkCommand;
 import sage.exception.SageException;
 
 /**

@@ -30,9 +30,10 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 ## Project standards:
 
-All Java code in this project MUST follow the project skill at
-`.codex/skills/seedu-java-coding-standard/SKILL.md`, based on the SE-EDU
-basic and intermediate Java coding standard.
+All Java source code in this project, including production and test code, MUST
+follow the project skill at `.codex/skills/seedu-java-coding-standard/SKILL.md`.
+That skill is based on the SE-EDU basic and intermediate Java coding standard;
+use it for every Java implementation, review, and refactor.
 
 All future commits MUST follow the project skill at
 `.codex/skills/seedu-git-standard/SKILL.md`, based on the SE-EDU Git

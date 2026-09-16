@@ -24,16 +24,16 @@ public class FindCommand extends Command {
         }
 
         ui.show("Here are the matching tasks in your list:");
-        boolean found = false;
+        boolean isFound = false;
         for (int index = 0; index < tasks.size(); index++) {
             Task task = tasks.get(index);
             if (task.getDescription().contains(keyword)) {
                 ui.show((index + 1) + "." + task);
-                found = true;
+                isFound = true;
             }
         }
 
-        if (!found) {
+        if (!isFound) {
             ui.show("There are no tasks matching \"" + keyword + "\".");
         }
     }

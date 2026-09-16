@@ -1,7 +1,12 @@
-import org.junit.jupiter.api.Test;
-import sage.model.Task;
+package sage;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import sage.model.Task;
 
 class TaskTest {
 
@@ -13,6 +18,7 @@ class TaskTest {
         assertEquals("read book", task.getDescription());
         assertEquals("[ ] read book", task.toString());
     }
+
     @Test
     void markAsDone_changesStatusAndString() {
         Task task = new Task("read book");

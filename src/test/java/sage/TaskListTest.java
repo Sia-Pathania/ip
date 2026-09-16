@@ -1,8 +1,10 @@
+package sage;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import sage.model.Task;
-
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskListTest {
 
