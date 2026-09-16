@@ -27,7 +27,8 @@ public class OnCommand extends Command {
         try {
             date = new Parser().parseDate(dateInput);
         } catch (SageException e) {
-            throw new SageException("Please enter a date in the format d/M/yyyy, like `on 25/12/2025`.");
+            throw new SageException("I couldn't understand that date. Let's try `d/M/yyyy`, "
+                    + "such as `on 25/12/2025`.");
         }
         boolean isFound = false;
         for (Task task : tasks) {

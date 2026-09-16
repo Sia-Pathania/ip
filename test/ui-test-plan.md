@@ -232,8 +232,8 @@ bye
 
 **Expected output:**
 ```text
-Please enter a valid date and time in the format d/M/yyyy HHmm.
-An event's end time must be later than its start time.
+I couldn't understand that date and time. Let's try `d/M/yyyy HHmm`.
+The event's end time must come after its start time. Let's check the times and try again.
 Bye. Hope to see you again soon!
 ```
 
@@ -250,7 +250,7 @@ bye
 
 **Expected output:**
 ```text
-This task is already in your list.
+This task is already in your list. Nothing more is needed.
 Bye. Hope to see you again soon!
 ```
 
@@ -328,7 +328,7 @@ bye
 
 **Expected output:**
 ```text
-Task descriptions may contain only letters, numbers, and single spaces.
+Task descriptions use single spaces between words. Let's try again.
 ```
 
 ## Test case 14: Finding without a keyword
@@ -343,7 +343,7 @@ bye
 
 **Expected output:**
 ```text
-Please provide a keyword to find, like `find book`.
+I need a keyword to search. Let's try `find book`.
 ```
 
 ## Test case 15: Finding duplicate tasks

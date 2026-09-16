@@ -121,7 +121,7 @@ public class Parser {
         try {
             return LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new SageException("Please enter a valid date and time in the format d/M/yyyy HHmm.");
+            throw new SageException("I couldn't understand that date and time. Let's try `d/M/yyyy HHmm`.");
         }
     }
 
@@ -130,7 +130,7 @@ public class Parser {
         try {
             return LocalDate.parse(date, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new SageException("Please enter a valid date in the format d/M/yyyy.");
+            throw new SageException("I couldn't understand that date. Let's try `d/M/yyyy`.");
         }
     }
 
@@ -143,17 +143,17 @@ public class Parser {
         int byIndex = details.indexOf(" /" + BY_COMMAND + " ");
         if (byIndex == -1) {
             throw new SageException(
-                    "Your deadline is missing a /by date or time. Could you try again?");
+                    "I couldn't find a /by date or time in your deadline. Let's try again.");
         }
         String description = details.substring(0, byIndex);
         validateDescription(description);
         String by = details.substring(byIndex + BY_COMMAND.length() + 3);
         if (details.indexOf(" /" + BY_COMMAND + " ", byIndex + 1) != -1) {
-            throw new SageException("A deadline can only have one /by date or time.");
+            throw new SageException("A deadline can have only one /by date or time. Let's try again.");
         }
         if (by.isBlank()) {
             throw new SageException(
-                    "Your deadline needs a date or time after /by. Could you try again?");
+                    "I need a date or time after /by. Let's try again.");
         }
         return new String[] {description, by};
     }
@@ -168,11 +168,11 @@ public class Parser {
         int toIndex = details.indexOf("/" + TO_COMMAND + " ");
         if (fromIndex == -1) {
             throw new SageException(
-                    "Your event is missing a /from start time. Could you try again?");
+                    "I couldn't find a /from start time in your event. Let's try again.");
         }
         if (toIndex == -1) {
             throw new SageException(
-                    "Your event is missing a /to end time. Could you try again?");
+                    "I couldn't find a /to end time in your event. Let's try again.");
         }
         String description = details.substring(0, fromIndex).trim();
         validateDescription(description);
@@ -180,15 +180,15 @@ public class Parser {
         String to = details.substring(toIndex + TO_COMMAND.length() + 2).trim();
         if (details.indexOf("/" + FROM_COMMAND + " ", fromIndex + 1) != -1
                 || details.indexOf("/" + TO_COMMAND + " ", toIndex + 1) != -1) {
-            throw new SageException("An event can only have one /from and one /to time.");
+            throw new SageException("An event can have only one /from and one /to time. Let's try again.");
         }
         if (from.isBlank()) {
             throw new SageException(
-                    "Your event needs a start time after /from. Could you try again?");
+                    "I need a start time after /from. Let's try again.");
         }
         if (to.isBlank()) {
             throw new SageException(
-                    "Your event needs an end time after /to. Could you try again?");
+                    "I need an end time after /to. Let's try again.");
         }
         return new String[] {description, from, to};
     }
@@ -197,10 +197,10 @@ public class Parser {
     public void validateDescription(String description) throws SageException {
         if (description.isBlank()) {
             throw new SageException(
-                    "Your task needs a description. What would you like to add?");
+                    "I need a description for this task. Let's try adding one.");
         }
         if (description.matches(".*\\s{2,}.*")) {
-            throw new SageException("Task descriptions may contain only single spaces between words.");
+            throw new SageException("Task descriptions use single spaces between words. Let's try again.");
         }
     }
 }

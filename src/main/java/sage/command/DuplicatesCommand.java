@@ -26,8 +26,8 @@ public class DuplicatesCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, SageException {
         if (!arguments.isBlank()) {
-            throw new SageException("The duplicates command does not accept arguments. "
-                    + "Please use `duplicates`.");
+            throw new SageException("I couldn't use those extra details with this command. "
+                    + "Please try `duplicates` on its own.");
         }
 
         Map<String, List<Integer>> duplicateGroups = findDuplicateGroups(tasks);

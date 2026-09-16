@@ -21,12 +21,12 @@ public class AddTodoCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, SageException {
         if (description.isBlank()) {
             throw new SageException(
-                    "Your todo needs a description. What would you like to add?");
+                    "I need a description for this task. Let's try adding one.");
         }
 
         Todo todo = new Todo(description);
         if (tasks.containsEquivalent(todo)) {
-            throw new SageException("This task is already in your list.");
+            throw new SageException("This task is already in your list. Nothing more is needed.");
         }
         tasks.add(todo);
         storage.save(tasks);

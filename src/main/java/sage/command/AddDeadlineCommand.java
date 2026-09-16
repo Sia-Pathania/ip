@@ -27,7 +27,7 @@ public class AddDeadlineCommand extends Command {
         LocalDateTime dateTime = parser.parseDateTime(parts[1]);
         Deadline deadline = new Deadline(parts[0], dateTime);
         if (tasks.containsEquivalent(deadline)) {
-            throw new SageException("This task is already in your list.");
+            throw new SageException("This task is already in your list. Nothing more is needed.");
         }
         tasks.add(deadline);
         storage.save(tasks);

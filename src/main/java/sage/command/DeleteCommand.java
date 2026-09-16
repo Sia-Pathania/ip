@@ -24,11 +24,11 @@ public class DeleteCommand extends Command {
         try {
             number = new Parser().parseTaskNumber(input);
         } catch (NumberFormatException e) {
-            throw new SageException("The task number should be a number, like `delete 2`.");
+            throw new SageException("I need a task number to delete. Please try `delete 2`.");
         }
         if (number < 1 || number > tasks.size()) {
             throw new SageException("I couldn't find task " + number
-                    + ". Please choose a task number from your list.");
+                    + ". Please check your list and let's try again.");
         }
         Task deleted = tasks.remove(number - 1);
         storage.save(tasks);

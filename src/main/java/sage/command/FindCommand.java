@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, SageException {
         if (keyword.isBlank()) {
-            throw new SageException("Please provide a keyword to find, like `find book`.");
+            throw new SageException("I need a keyword to search. Let's try `find book`.");
         }
 
         ui.show("Here are the matching tasks in your list:");

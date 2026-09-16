@@ -24,11 +24,11 @@ public class UnmarkCommand extends Command {
         try {
             number = new Parser().parseTaskNumber(input);
         } catch (NumberFormatException e) {
-            throw new SageException("The task number should be a number, like `unmark 2`.");
+            throw new SageException("I need a task number to unmark. Please try `unmark 2`.");
         }
         if (number < 1 || number > tasks.size()) {
             throw new SageException("I couldn't find task " + number
-                    + ". Please choose a task number from your list.");
+                    + ". Please check your list and let's try again.");
         }
         Task task = tasks.get(number - 1);
         task.markAsNotDone();
