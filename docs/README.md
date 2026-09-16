@@ -25,6 +25,19 @@ expected output
 // Feature details
 
 
-## Feature XYZ
+## Finding duplicate tasks
+
+Use `duplicates` to find groups of repeated tasks. Descriptions are compared
+case-insensitively after trimming surrounding whitespace and collapsing
+repeated internal whitespace. Todo tasks use an empty time range; deadlines
+use their deadline time; and events use both their start and end times.
+Completion status is ignored, and the command only reports results.
+
+Example: `duplicates`
+
+Sage displays each duplicate group with the tasks' existing list numbers. If
+no duplicates are found, Sage displays `There are no duplicate tasks.`.
+
+The command does not accept arguments.
 
 // Feature details
