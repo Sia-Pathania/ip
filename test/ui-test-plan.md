@@ -298,9 +298,9 @@ Here are the matching tasks in your list:
 There are no tasks matching "holiday".
 ```
 
-## Test case 12: Rejecting punctuation in task descriptions
+## Test case 12: Allowing punctuation in task descriptions
 
-**Aim:** Verify that task descriptions reject unexpected punctuation.
+**Aim:** Verify that task descriptions may contain punctuation.
 
 **Input:**
 ```text
@@ -310,7 +310,10 @@ bye
 
 **Expected output:**
 ```text
-Task descriptions may contain only letters, numbers, and single spaces.
+Got it. I've added this task:
+  [T][ ] buy milk!
+Now you have 1 task in the list.
+Bye. Hope to see you again soon!
 ```
 
 ## Test case 13: Rejecting repeated spaces in task descriptions

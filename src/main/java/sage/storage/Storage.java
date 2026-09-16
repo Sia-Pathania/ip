@@ -34,8 +34,8 @@ public class Storage {
         File file = new File(filePath.toUri());
 
         File parent = file.getParentFile();
-        if (parent != null) {
-            parent.mkdirs();
+        if (parent != null && !parent.exists() && !parent.mkdirs()) {
+            throw new IOException("Unable to create task data directory: " + parent);
         }
 
         try (FileWriter writer = new FileWriter(file)) {
@@ -70,10 +70,12 @@ public class Storage {
             return tasks;
         }
 
+        int lineNumber = 0;
         for (String line : Files.readAllLines(filePath, StandardCharsets.UTF_8)) {
+            lineNumber++;
             String[] parts = line.split("\\|", -1);
-            if (parts.length < 4) {
-                continue;
+            if (parts.length < 4 || !parts[1].equals(DONE_STATUS) && !parts[1].equals(NOT_DONE_STATUS)) {
+                throw new IOException("Invalid task data on line " + lineNumber + ".");
             }
             Task task;
             try {
@@ -84,10 +86,10 @@ public class Storage {
                 } else if (parts[0].equals(TODO_TYPE)) {
                     task = new Todo(parts[2]);
                 } else {
-                    continue;
+                    throw new IOException("Invalid task data on line " + lineNumber + ".");
                 }
             } catch (RuntimeException e) {
-                continue;
+                throw new IOException("Invalid task data on line " + lineNumber + ".", e);
             }
 
             if (parts[1].equals(DONE_STATUS)) {

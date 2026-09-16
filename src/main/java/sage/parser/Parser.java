@@ -63,8 +63,8 @@ public class Parser {
      */
     public String getCommandName(String command) {
         String trimmedCommand = command.trim();
-        int firstSpace = trimmedCommand.indexOf(' ');
-        return firstSpace == -1 ? trimmedCommand : trimmedCommand.substring(0, firstSpace);
+        String[] parts = trimmedCommand.split("\\s+", 2);
+        return parts[0];
     }
 
     /**
@@ -75,8 +75,8 @@ public class Parser {
      */
     public String getArguments(String command) {
         String trimmedCommand = command.trim();
-        int firstSpace = trimmedCommand.indexOf(' ');
-        return firstSpace == -1 ? "" : trimmedCommand.substring(firstSpace + 1).trim();
+        String[] parts = trimmedCommand.split("\\s+", 2);
+        return parts.length == 1 ? "" : parts[1].trim();
     }
 
     /**
@@ -193,14 +193,14 @@ public class Parser {
         return new String[] {description, from, to};
     }
 
-    /** Validates that a task description contains only words separated by single spaces. */
+    /** Validates that a task description is present and uses single spaces between words. */
     public void validateDescription(String description) throws SageException {
         if (description.isBlank()) {
             throw new SageException(
                     "Your task needs a description. What would you like to add?");
         }
-        if (!description.matches("[\\p{L}\\p{N}]+(?: [\\p{L}\\p{N}]+)*")) {
-            throw new SageException("Task descriptions may contain only letters, numbers, and single spaces.");
+        if (description.matches(".*\\s{2,}.*")) {
+            throw new SageException("Task descriptions may contain only single spaces between words.");
         }
     }
 }

@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -20,7 +21,16 @@ public class SageGui extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        sage = new Sage();
+        try {
+            sage = new Sage();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sage could not start");
+            alert.setHeaderText("Unable to load your tasks");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return;
+        }
         conversation = new TextArea("Sage:\nHello! I'm Sage.\nI'm here whenever you feel like chatting!\n\n");
         conversation.setEditable(false);
         conversation.setWrapText(true);
