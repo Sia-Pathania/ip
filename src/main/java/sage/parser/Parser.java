@@ -38,7 +38,12 @@ public class Parser {
     private static final DateTimeFormatter ISO_DATE_FORMATTER =
             DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
 
-    /** Creates the command object corresponding to the user's input. */
+    /** Creates the command object corresponding to the user's input.
+     *
+     * @param command complete user input
+     * @return parsed command, or {@code null} when no command matches
+     * @throws SageException when the input is invalid
+     */
     public Command parseCommand(String command) throws SageException {
         if (command == null) {
             return null;
@@ -112,29 +117,51 @@ public class Parser {
         return Integer.parseInt(arguments);
     }
 
-    /** Returns the Todo description supplied by the user. */
+    /** Returns the Todo description supplied by the user.
+     *
+     * @param command complete user input
+     * @return validated Todo description
+     * @throws SageException when the description is invalid
+     */
     public String getTodoDescription(String command) throws SageException {
         String description = getArguments(command);
         validateDescription(description);
         return description;
     }
 
-    /** Returns the raw Deadline details supplied by the user. */
+    /** Returns the raw Deadline details supplied by the user.
+     *
+     * @param command complete user input
+     * @return raw Deadline details
+     */
     public String getDeadlineDetails(String command) {
         return getArguments(command);
     }
 
-    /** Returns the raw Event details supplied by the user. */
+    /** Returns the raw Event details supplied by the user.
+     *
+     * @param command complete user input
+     * @return raw Event details
+     */
     public String getEventDetails(String command) {
         return getArguments(command);
     }
 
-    /** Returns the date supplied to the {@code on} command. */
+    /** Returns the date supplied to the {@code on} command.
+     *
+     * @param command complete user input
+     * @return supplied date input
+     */
     public String getDateInput(String command) {
         return getArguments(command);
     }
 
-    /** Parses a deadline or event date and time. */
+    /** Parses a deadline or event date and time.
+     *
+     * @param dateTime date-time input
+     * @return parsed date-time
+     * @throws SageException when the input is invalid
+     */
     public LocalDateTime parseDateTime(String dateTime) throws SageException {
         DateTimeFormatter[] formatters = {DATE_TIME_FORMATTER, ISO_DATE_TIME_FORMATTER};
         for (DateTimeFormatter formatter : formatters) {
@@ -163,7 +190,12 @@ public class Parser {
         }
     }
 
-    /** Parses a date used by the {@code on} command. */
+    /** Parses a date used by the {@code on} command.
+     *
+     * @param date date input
+     * @return parsed date
+     * @throws SageException when the input is invalid
+     */
     public LocalDate parseDate(String date) throws SageException {
         DateTimeFormatter[] formatters = {DATE_FORMATTER, ISO_DATE_FORMATTER};
         for (DateTimeFormatter formatter : formatters) {
@@ -179,6 +211,8 @@ public class Parser {
     /**
      * Splits and validates Deadline input into description and due date.
      *
+     * @param details raw Deadline details
+     * @return description and due date values
      * @throws SageException when a required field is missing
      */
     public String[] parseDeadlineDetails(String details) throws SageException {
@@ -203,6 +237,8 @@ public class Parser {
     /**
      * Splits and validates Event input into description, start, and end values.
      *
+     * @param details raw Event details
+     * @return description, start, and end values
      * @throws SageException when a required field is missing
      */
     public String[] parseEventDetails(String details) throws SageException {
@@ -235,7 +271,11 @@ public class Parser {
         return new String[] {description, from, to};
     }
 
-    /** Validates that a task description is present and uses single spaces between words. */
+    /** Validates that a task description is present and uses single spaces between words.
+     *
+     * @param description task description to validate
+     * @throws SageException when the description is invalid
+     */
     public void validateDescription(String description) throws SageException {
         if (description.isBlank()) {
             throw new SageException(
