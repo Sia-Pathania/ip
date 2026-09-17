@@ -1,22 +1,22 @@
 # Sage User Guide
 
-Sage is a friendly task manager that helps you keep track of todos, deadlines,
-and events. Type a command at the prompt and Sage will update your task list.
-Your tasks are saved automatically, so they are available the next time you
-start Sage.
+Sage is a friendly command-line task manager for todos, deadlines, and events.
+It remembers your tasks between sessions and helps you find, complete, and
+remove them.
 
 ## Getting started
 
-Start Sage using your IDE or the project's Gradle run task. Sage will greet you
-and then wait for a command. Commands are case-sensitive and should be entered
-in lowercase.
+Run Sage from your IDE or with the project's Gradle run task. Sage will greet
+you and wait for a command. Commands are case-sensitive and must be entered in
+lowercase. Separate words with spaces.
 
-Each task is shown with a number. Use that number when marking, unmarking, or
-deleting a task.
+Tasks are numbered in the order they appear in the list, starting at **1**.
+The first task is always task `1` (not task `0`). Use the number shown by
+`list` with `mark`, `unmark`, and `delete`.
 
 ## Adding tasks
 
-### Add a todo
+### Todo
 
 Use `todo` for a task without a date or time:
 
@@ -24,69 +24,83 @@ Use `todo` for a task without a date or time:
 todo return library books
 ```
 
-### Add a deadline
+### Deadline
 
-Use `deadline` followed by `/by` and a date and time. The format is
-`d/M/yyyy HHmm`, using 24-hour time:
+Use `deadline` followed by `/by` and a date and time. Use the format
+`d/M/yyyy HHmm` and 24-hour time:
 
 ```text
 deadline submit assignment /by 25/12/2025 2359
 ```
 
-### Add an event
+### Event
 
-Use `event` with `/from` and `/to` date-time values. The end must be later than
-the start:
+Use `event` with `/from` and `/to` date-time values. Both values must use this
+format:
+
+- Date: `d/M/yyyy` (for example, `25/12/2025`)
+- Time: `HHmm` in 24-hour time (for example, `1530` for 3:30 p.m.)
+- Date and time together: `d/M/yyyy HHmm` (for example, `25/12/2025 1530`)
+
+The end date and time must be later than the start date and time:
 
 ```text
 event team meeting /from 25/12/2025 1400 /to 25/12/2025 1530
 ```
 
-Sage rejects tasks with no description, invalid dates or times, duplicate tasks,
-or missing date-time fields. A deadline must have exactly one `/by` field, and
-an event must have exactly one `/from` and one `/to` field.
+Sage saves each successfully added task automatically. It rejects tasks with
+no description, invalid dates or times, duplicate details, or missing date-time
+fields. A deadline must contain exactly one `/by` field. An event must contain
+exactly one `/from` field and one `/to` field.
 
 ## Viewing and finding tasks
 
-| Command | What it does | Example |
+| Command | Description | Example |
 | --- | --- | --- |
-| `list` | Shows every task in the order it was added | `list` |
-| `find KEYWORD` | Shows tasks whose descriptions contain the keyword | `find books` |
-| `on DATE` | Shows deadlines and events on a date | `on 25/12/2025` |
-| `duplicates` | Finds groups of duplicate tasks | `duplicates` |
+| `list` | Shows all tasks in their current order. | `list` |
+| `find KEYWORD` | Shows tasks whose descriptions contain `KEYWORD`. | `find books` |
+| `on DATE` | Shows deadlines and events on `DATE`. | `on 25/12/2025` |
+| `duplicates` | Reports groups of duplicate tasks. | `duplicates` |
 
 For `on`, use the date format `d/M/yyyy`. An event is shown for every date
-between its start and end dates, inclusive. The `find` command matches the
-keyword as entered, so `find Books` and `find books` can produce different
-results.
+between its start and end dates, inclusive. The `find` keyword is case-sensitive,
+so `find Books` and `find books` can return different results.
 
-Duplicate detection compares descriptions without case or extra surrounding
-and repeated whitespace. For deadlines and events, the date or time range must
-also match. Completion status does not affect whether tasks are duplicates.
+Duplicate detection ignores case and extra surrounding or repeated whitespace
+in descriptions. For deadlines and events, the date or time range must also
+match. Completion status does not affect whether tasks are duplicates. The
+`duplicates` command does not accept arguments.
 
 ## Managing tasks
 
-Use the task number displayed by `list`:
+First enter `list` to see the task numbers. Then use one of these commands,
+replacing `TASK_NUMBER` with a positive number such as `1`:
+
+| Command | What it does | Example |
+| --- | --- | --- |
+| `mark TASK_NUMBER` | Marks the task as done. | `mark 1` |
+| `unmark TASK_NUMBER` | Changes a completed task back to not done. | `unmark 1` |
+| `delete TASK_NUMBER` | Permanently removes the task. | `delete 1` |
+
+For example:
 
 ```text
+list
 mark 1
-unmark 1
-delete 1
 ```
 
-`mark` marks a task as done, `unmark` changes it back to not done, and `delete`
-removes it permanently from the list. For all three commands, the task number
-must be a valid positive number in the current list.
+Each command requires a valid positive task number from the current list.
 
-## Ending Sage
+## Ending the session
 
-When you are finished, enter:
+Enter `bye` when you are finished:
 
 ```text
 bye
 ```
 
-Sage says goodbye and closes the session.
+Sage says goodbye and closes the session. Tasks already saved remain available
+the next time you start Sage.
 
 ## Quick reference
 
