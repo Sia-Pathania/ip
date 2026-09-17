@@ -12,7 +12,11 @@ import sage.ui.Ui;
 public class AddTodoCommand extends Command {
     private final String description;
 
-    /** Creates a Todo command for the supplied description. */
+    /**
+     * Creates a Todo task with the supplied description.
+     *
+     * @param description the description of the Todo task
+     */
     public AddTodoCommand(String description) {
         this.description = description;
     }
