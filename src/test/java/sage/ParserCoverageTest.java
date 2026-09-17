@@ -35,7 +35,8 @@ class ParserCoverageTest {
         assertEquals(FindCommand.class, parser.parseCommand("find book").getClass());
         assertEquals(AddTodoCommand.class, parser.parseCommand("todo book").getClass());
         assertEquals(AddDeadlineCommand.class, parser.parseCommand("deadline book /by 1/1/2026 1200").getClass());
-        assertEquals(AddEventCommand.class, parser.parseCommand("event book /from 1/1/2026 1200 /to 1/1/2026 1300").getClass());
+        assertEquals(AddEventCommand.class,
+                parser.parseCommand("event book /from 1/1/2026 1200 /to 1/1/2026 1300").getClass());
     }
 
     @Test
