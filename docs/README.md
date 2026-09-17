@@ -26,9 +26,16 @@ todo return library books
 
 ### Deadline
 
-Use `deadline` followed by `/by` and a date or date and time. Date-time values
-use the format `d/M/yyyy HHmm` and 24-hour time. A date-only deadline is due
-at the end of that day:
+Use `deadline` followed by `/by` and a date or date and time. Sage accepts
+these formats:
+
+- `d/M/yyyy`, such as `15/10/2019`
+- `yyyy-MM-dd`, such as `2019-10-15`
+- `d/M/yyyy HHmm`, such as `15/10/2019 1800`
+- `yyyy-MM-dd HHmm`, such as `2019-10-15 1800`
+
+Times use the 24-hour `HHmm` format. A date-only deadline is due at the end
+of that day:
 
 ```text
 deadline submit assignment /by 25/12/2025 2359
@@ -39,9 +46,11 @@ deadline submit assignment /by 25/12/2025 2359
 Use `event` with `/from` and `/to` date or date-time values. Sage accepts either
 of these formats:
 
-- Date: `d/M/yyyy` (for example, `25/12/2025`)
-- Time: `HHmm` in 24-hour time (for example, `1530` for 3:30 p.m.)
-- Date and time together: `d/M/yyyy HHmm` (for example, `25/12/2025 1530`)
+- Date only: `d/M/yyyy` (for example, `25/12/2025`)
+- Date and time: `d/M/yyyy HHmm` (for example, `25/12/2025 1530`)
+
+The ISO equivalents `yyyy-MM-dd` and `yyyy-MM-dd HHmm` are also accepted.
+An Event cannot contain a time without a date.
 
 Date-only event boundaries cover the full day: a start date uses `0000` and an
 end date uses `2359`.
@@ -110,8 +119,10 @@ the next time you start Sage.
 
 ```text
 todo DESCRIPTION
-deadline DESCRIPTION /by d/M/yyyy HHmm
-event DESCRIPTION /from d/M/yyyy HHmm /to d/M/yyyy HHmm
+deadline DESCRIPTION /by DATE
+deadline DESCRIPTION /by DATE HHmm
+event DESCRIPTION /from DATE /to DATE
+event DESCRIPTION /from DATE HHmm /to DATE HHmm
 list
 find KEYWORD
 on d/M/yyyy
@@ -121,3 +132,13 @@ unmark TASK_NUMBER
 delete TASK_NUMBER
 bye
 ```
+
+For `DATE`, the accepted formats are:
+
+- Date only: `d/M/yyyy` (for example, `25/12/2025`)
+- Date only: `yyyy-MM-dd` (for example, `2025-12-25`)
+- Date and time: `d/M/yyyy HHmm` (for example, `25/12/2025 1530`)
+- Date and time: `yyyy-MM-dd HHmm` (for example, `2025-12-25 1530`)
+
+`HHmm` uses 24-hour time and cannot be entered without a date. The
+hyphenated day-first format `25-12-2025` is not accepted.
