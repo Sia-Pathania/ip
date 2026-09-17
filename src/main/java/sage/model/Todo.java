@@ -1,8 +1,12 @@
 package sage.model;
+
 /** A task without a deadline or scheduled time. */
 public class Todo extends Task {
 
-    /** Creates a todo with the supplied description. */
+    /** Creates a todo with the supplied description.
+     *
+     * @param description todo description
+     */
     public Todo(String description) {
         super(description);
     }
