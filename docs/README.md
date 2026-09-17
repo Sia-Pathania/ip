@@ -1,43 +1,119 @@
 # Sage User Guide
 
-// Update the title above to match the actual product name
+Sage is a friendly command-line task manager for todos, deadlines, and events.
+It remembers your tasks between sessions and helps you find, complete, and
+remove them.
 
-// Product screenshot goes here
+## Getting started
 
-// Product intro goes here
+Run Sage from your IDE or with the project's Gradle run task. Sage will greet
+you and wait for a command. Commands are case-sensitive and must be entered in
+lowercase. Separate words with spaces.
 
-## Adding deadlines
+Tasks are numbered in the order they appear in the list, starting at **1**.
+The first task is always task `1` (not task `0`). Use the number shown by
+`list` with `mark`, `unmark`, and `delete`.
 
-// Describe the action and its outcome.
+## Adding tasks
 
-// Give examples of usage
+### Todo
 
-Example: `keyword (optional arguments)`
+Use `todo` for a task without a date or time:
 
-// A description of the expected outcome goes here
-
+```text
+todo return library books
 ```
-expected output
+
+### Deadline
+
+Use `deadline` followed by `/by` and a date and time. Use the format
+`d/M/yyyy HHmm` and 24-hour time:
+
+```text
+deadline submit assignment /by 25/12/2025 2359
 ```
 
-## Feature ABC
+### Event
 
-// Feature details
+Use `event` with `/from` and `/to` date-time values. Both values must use this
+format:
 
+- Date: `d/M/yyyy` (for example, `25/12/2025`)
+- Time: `HHmm` in 24-hour time (for example, `1530` for 3:30 p.m.)
+- Date and time together: `d/M/yyyy HHmm` (for example, `25/12/2025 1530`)
 
-## Finding duplicate tasks
+The end date and time must be later than the start date and time:
 
-Use `duplicates` to find groups of repeated tasks. Descriptions are compared
-case-insensitively after trimming surrounding whitespace and collapsing
-repeated internal whitespace. Todo tasks use an empty time range; deadlines
-use their deadline time; and events use both their start and end times.
-Completion status is ignored, and the command only reports results.
+```text
+event team meeting /from 25/12/2025 1400 /to 25/12/2025 1530
+```
 
-Example: `duplicates`
+Sage saves each successfully added task automatically. It rejects tasks with
+no description, invalid dates or times, duplicate details, or missing date-time
+fields. A deadline must contain exactly one `/by` field. An event must contain
+exactly one `/from` field and one `/to` field.
 
-Sage displays each duplicate group with the tasks' existing list numbers. If
-no duplicates are found, Sage displays `There are no duplicate tasks.`.
+## Viewing and finding tasks
 
-The command does not accept arguments.
+| Command | Description | Example |
+| --- | --- | --- |
+| `list` | Shows all tasks in their current order. | `list` |
+| `find KEYWORD` | Shows tasks whose descriptions contain `KEYWORD`. | `find books` |
+| `on DATE` | Shows deadlines and events on `DATE`. | `on 25/12/2025` |
+| `duplicates` | Reports groups of duplicate tasks. | `duplicates` |
 
-// Feature details
+For `on`, use the date format `d/M/yyyy`. An event is shown for every date
+between its start and end dates, inclusive. The `find` keyword is case-sensitive,
+so `find Books` and `find books` can return different results.
+
+Duplicate detection ignores case and extra surrounding or repeated whitespace
+in descriptions. For deadlines and events, the date or time range must also
+match. Completion status does not affect whether tasks are duplicates. The
+`duplicates` command does not accept arguments.
+
+## Managing tasks
+
+First enter `list` to see the task numbers. Then use one of these commands,
+replacing `TASK_NUMBER` with a positive number such as `1`:
+
+| Command | What it does | Example |
+| --- | --- | --- |
+| `mark TASK_NUMBER` | Marks the task as done. | `mark 1` |
+| `unmark TASK_NUMBER` | Changes a completed task back to not done. | `unmark 1` |
+| `delete TASK_NUMBER` | Permanently removes the task. | `delete 1` |
+
+For example:
+
+```text
+list
+mark 1
+```
+
+Each command requires a valid positive task number from the current list.
+
+## Ending the session
+
+Enter `bye` when you are finished:
+
+```text
+bye
+```
+
+Sage says goodbye and closes the session. Tasks already saved remain available
+the next time you start Sage.
+
+## Quick reference
+
+```text
+todo DESCRIPTION
+deadline DESCRIPTION /by d/M/yyyy HHmm
+event DESCRIPTION /from d/M/yyyy HHmm /to d/M/yyyy HHmm
+list
+find KEYWORD
+on d/M/yyyy
+duplicates
+mark TASK_NUMBER
+unmark TASK_NUMBER
+delete TASK_NUMBER
+bye
+```
