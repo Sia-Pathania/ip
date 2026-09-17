@@ -2,6 +2,7 @@ package sage.parser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
@@ -144,6 +145,22 @@ public class Parser {
             }
         }
         throw new SageException("Please enter a valid date and time in the format d/M/yyyy HHmm.");
+    }
+
+    /** Parses a date-time or a date covering the appropriate full day.
+     *
+     * @param dateTime event boundary supplied by the user
+     * @param isStart whether the boundary is the event start
+     * @return parsed boundary, using midnight for starts and 11:59 PM for ends
+     * @throws SageException when the value is not a supported date or date-time
+     */
+    public LocalDateTime parseDateTimeOrDate(String dateTime, boolean isStart) throws SageException {
+        try {
+            return parseDateTime(dateTime);
+        } catch (SageException e) {
+            LocalDate date = parseDate(dateTime);
+            return date.atTime(isStart ? LocalTime.MIN : LocalTime.MAX.withSecond(0).withNano(0));
+        }
     }
 
     /** Parses a date used by the {@code on} command. */

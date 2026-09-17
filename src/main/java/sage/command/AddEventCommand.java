@@ -24,8 +24,8 @@ public class AddEventCommand extends Command {
         Parser parser = new Parser();
         String[] parts = parser.parseEventDetails(details);
         assert parts.length == 3;
-        LocalDateTime from = parser.parseDateTime(parts[1]);
-        LocalDateTime to = parser.parseDateTime(parts[2]);
+        LocalDateTime from = parser.parseDateTimeOrDate(parts[1], true);
+        LocalDateTime to = parser.parseDateTimeOrDate(parts[2], false);
         if (!from.isBefore(to)) {
             throw new SageException("An event's end time must be later than its start time.");
         }

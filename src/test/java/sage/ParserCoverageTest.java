@@ -44,6 +44,12 @@ class ParserCoverageTest {
         assertEquals(LocalDateTime.of(2026, 1, 2, 13, 5), parser.parseDateTime("2026-01-02 1305"));
         assertEquals(LocalDate.of(2026, 1, 2), parser.parseDate("2/1/2026"));
         assertEquals(LocalDate.of(2026, 1, 2), parser.parseDate("2026-01-02"));
+        assertEquals(LocalDateTime.of(2026, 1, 2, 0, 0),
+                parser.parseDateTimeOrDate("2026-01-02", true));
+        assertEquals(LocalDateTime.of(2026, 1, 2, 23, 59),
+                parser.parseDateTimeOrDate("2026-01-02", false));
+        assertEquals(LocalDateTime.of(2026, 1, 2, 23, 59),
+                parser.parseDateTimeOrDate("2/1/2026", false));
     }
 
     @Test

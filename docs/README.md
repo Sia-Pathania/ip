@@ -26,8 +26,9 @@ todo return library books
 
 ### Deadline
 
-Use `deadline` followed by `/by` and a date and time. Use the format
-`d/M/yyyy HHmm` and 24-hour time:
+Use `deadline` followed by `/by` and a date or date and time. Date-time values
+use the format `d/M/yyyy HHmm` and 24-hour time. A date-only deadline is due
+at the end of that day:
 
 ```text
 deadline submit assignment /by 25/12/2025 2359
@@ -35,12 +36,15 @@ deadline submit assignment /by 25/12/2025 2359
 
 ### Event
 
-Use `event` with `/from` and `/to` date-time values. Both values must use this
-format:
+Use `event` with `/from` and `/to` date or date-time values. Sage accepts either
+of these formats:
 
 - Date: `d/M/yyyy` (for example, `25/12/2025`)
 - Time: `HHmm` in 24-hour time (for example, `1530` for 3:30 p.m.)
 - Date and time together: `d/M/yyyy HHmm` (for example, `25/12/2025 1530`)
+
+Date-only event boundaries cover the full day: a start date uses `0000` and an
+end date uses `2359`.
 
 The end date and time must be later than the start date and time:
 
