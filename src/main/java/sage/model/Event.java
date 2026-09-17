@@ -2,10 +2,11 @@ package sage.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 /** Represents a task that takes place during a specified time range. */
 public class Event extends Task {
     private static final DateTimeFormatter DISPLAY_FORMATTER =
-            DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mma");
+            DateTimeFormatter.ofPattern("MMM d yyyy, hh:mma", Locale.ENGLISH);
 
     private final LocalDateTime from;
     private final LocalDateTime to;

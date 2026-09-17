@@ -2,11 +2,12 @@ package sage.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /** Represents a task that must be completed by a specified date and time. */
 public class Deadline extends Task {
     private static final DateTimeFormatter DISPLAY_FORMATTER =
-            DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mma");
+            DateTimeFormatter.ofPattern("MMM d yyyy, hh:mma", Locale.ENGLISH);
 
     private final LocalDateTime by;
 

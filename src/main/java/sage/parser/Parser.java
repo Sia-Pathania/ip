@@ -43,6 +43,7 @@ public class Parser {
             return null;
         }
         String commandName = getCommandName(command);
+        validateTaskCommandCase(commandName);
         return switch (commandName) {
         case "bye" -> new ExitCommand();
         case "list" -> new ListCommand();
@@ -57,6 +58,18 @@ public class Parser {
         case "on" -> new OnCommand(getDateInput(command));
         default -> null;
         };
+    }
+
+    /** Rejects task commands that use uppercase letters so the required syntax is clear. */
+    private void validateTaskCommandCase(String commandName) throws SageException {
+        if (commandName.equalsIgnoreCase("todo")
+                || commandName.equalsIgnoreCase("deadline")
+                || commandName.equalsIgnoreCase("event")) {
+            if (!commandName.equals(commandName.toLowerCase())) {
+                throw new SageException("The '" + commandName + "' command must be lowercase. "
+                        + "Please use '" + commandName.toLowerCase() + "'.");
+            }
+        }
     }
 
     /**
