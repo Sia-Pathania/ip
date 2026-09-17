@@ -11,13 +11,20 @@ public class Deadline extends Task {
 
     private final LocalDateTime by;
 
-    /** Creates a deadline with its description and due date. */
+    /** Creates a deadline with its description and due date.
+     *
+     * @param description deadline description
+     * @param by date and time by which the deadline must be completed
+     */
     public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
-    /** Returns the date and time by which this task should be completed. */
+    /** Returns the date and time by which this task should be completed.
+     *
+     * @return deadline date and time
+     */
     public LocalDateTime getBy() {
         return by;
     }
