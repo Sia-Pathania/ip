@@ -14,6 +14,7 @@ import sage.model.Event;
 import sage.model.Task;
 import sage.model.TaskList;
 import sage.model.Todo;
+
 /** Reads and writes Sage tasks to a local text file. */
 public class Storage {
     private static final String DEADLINE_TYPE = "D";
@@ -24,12 +25,19 @@ public class Storage {
 
     private final Path filePath;
 
-    /** Creates storage backed by the supplied file path. */
+    /** Creates storage backed by the supplied file path.
+     *
+     * @param filePath path to the task data file
+     */
     public Storage(String filePath) {
         this.filePath = Paths.get(filePath);
     }
 
-    /** Saves all tasks in the list to disk. */
+    /** Saves all tasks in the list to disk.
+     *
+     * @param tasks tasks to save
+     * @throws IOException when the task data cannot be written
+     */
     public void save(TaskList tasks) throws IOException {
         File file = new File(filePath.toUri());
 
@@ -61,8 +69,11 @@ public class Storage {
         }
     }
 
-    /** Loads all valid tasks from disk, or an empty list when no file exists. */
-
+    /** Loads all valid tasks from disk, or an empty list when no file exists.
+     *
+     * @return loaded tasks
+     * @throws IOException when the task data cannot be read or is invalid
+     */
     public TaskList load() throws IOException {
         TaskList tasks = new TaskList();
 
