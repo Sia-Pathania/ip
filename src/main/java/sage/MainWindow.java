@@ -33,6 +33,11 @@ public class MainWindow {
     /** Adds the initial greeting after the FXML controls have been injected. */
     @FXML
     public void initialize() {
+        // Keep the conversation readable on wide or maximized windows.
+        conversation.setMaxWidth(800);
+        conversation.setPrefWidth(800);
+        conversation.setFillWidth(false);
+        conversation.setAlignment(Pos.TOP_CENTER);
         conversation.setPadding(new Insets(10));
         conversation.setStyle("-fx-background-color: #f4f7fb;");
         messageScroll.setStyle("-fx-background: #f4f7fb; -fx-background-color: #f4f7fb;");
