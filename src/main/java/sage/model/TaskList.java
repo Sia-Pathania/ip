@@ -25,7 +25,11 @@ public class TaskList extends ArrayList<Task> {
         super(tasks);
     }
 
-    /** Returns whether this list already contains a task with identical details. */
+    /** Returns whether this list already contains a task with identical details.
+     *
+     * @param candidate task to compare against this list
+     * @return whether an equivalent task is already present
+     */
     public boolean containsEquivalent(Task candidate) {
         for (Task task : this) {
             if (task.getClass() != candidate.getClass()
