@@ -17,6 +17,11 @@ import javafx.scene.layout.HBox;
 
 /** Represents one chat message and its speaker avatar. */
 public class DialogBox extends HBox {
+    private static final String SENDER_BUBBLE_STYLE = "-fx-background-color: #d9ecff;"
+            + "-fx-background-radius: 12; -fx-border-radius: 12;";
+    private static final String RECEIVER_BUBBLE_STYLE = "-fx-background-color: #ffffff;"
+            + "-fx-background-radius: 12; -fx-border-radius: 12;";
+
     @FXML private Label dialog;
     @FXML private ImageView displayPicture;
 
@@ -37,6 +42,7 @@ public class DialogBox extends HBox {
     /** Creates a sender message aligned to the right. */
     public static DialogBox getSenderDialog(String text, Image image) {
         DialogBox box = new DialogBox(text, image);
+        box.dialog.setStyle(SENDER_BUBBLE_STYLE);
         box.setAlignment(Pos.TOP_RIGHT);
         return box;
     }
@@ -47,6 +53,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> children = FXCollections.observableArrayList(box.getChildren());
         Collections.reverse(children);
         box.getChildren().setAll(children);
+        box.dialog.setStyle(RECEIVER_BUBBLE_STYLE);
         box.setAlignment(Pos.TOP_LEFT);
         return box;
     }
