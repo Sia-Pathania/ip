@@ -14,7 +14,11 @@ import sage.ui.Ui;
 public class AddEventCommand extends Command {
     private final String details;
 
-    /** Creates an Event command for raw event details. */
+    /**
+     * Creates an Event command for raw event details.
+     *
+     * @param details the event description and date or date-time range
+     */
     public AddEventCommand(String details) {
         this.details = details;
     }

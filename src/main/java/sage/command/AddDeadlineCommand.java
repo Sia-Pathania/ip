@@ -14,7 +14,11 @@ import sage.ui.Ui;
 public class AddDeadlineCommand extends Command {
     private final String details;
 
-    /** Creates a Deadline command for raw deadline details. */
+    /**
+     * Creates a Deadline command for raw deadline details.
+     *
+     * @param details the deadline description and due date or date-time
+     */
     public AddDeadlineCommand(String details) {
         this.details = details;
     }

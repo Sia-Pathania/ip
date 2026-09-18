@@ -13,7 +13,7 @@ public class AddTodoCommand extends Command {
     private final String description;
 
     /**
-     * Creates a Todo task with the supplied description.
+     * Creates a Todo command with the supplied description.
      *
      * @param description the description of the Todo task
      */
