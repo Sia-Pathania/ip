@@ -48,8 +48,7 @@ class FindCommandTest {
             System.setOut(originalOut);
         }
 
-        assertEquals("Here are the matching tasks in your list:\n"
-                + "There are no tasks matching \"holiday\".\n", output.toString());
+        assertEquals("There are no tasks matching \"holiday\".\n", output.toString());
     }
 
     @Test

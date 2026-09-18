@@ -27,11 +27,13 @@ public class FindCommand extends Command {
             throw new SageException("Please provide a keyword to find, like `find book`.");
         }
 
-        ui.show("Here are the matching tasks in your list:");
         boolean isFound = false;
         for (int index = 0; index < tasks.size(); index++) {
             Task task = tasks.get(index);
             if (task.getDescription().contains(keyword)) {
+                if (!isFound) {
+                    ui.show("Here are the matching tasks in your list:");
+                }
                 ui.show((index + 1) + "." + task);
                 isFound = true;
             }

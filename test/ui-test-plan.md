@@ -348,7 +348,6 @@ bye
 
 **Expected output:**
 ```text
-Here are the matching tasks in your list:
 There are no tasks matching "holiday".
 ```
 
