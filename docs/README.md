@@ -1,144 +1,197 @@
 # Sage User Guide
 
+[Sage](../README.md)
+[User Guide](README.md)
+[View on GitHub](https://github.com/)
+
 Sage is a friendly command-line task manager for todos, deadlines, and events.
-It remembers your tasks between sessions and helps you find, complete, and
-remove them.
+It helps you keep track of tasks, mark them as completed, search for them, and
+continue where you left off because your data is saved automatically.
 
-## Getting started
+## Table of Contents
 
-Run Sage from your IDE or with the project's Gradle run task. Sage will greet
-you and wait for a command. Commands are case-sensitive and must be entered in
-lowercase. Separate words with spaces.
+- [Quick start](#quick-start)
+- [Features](#features)
+- [Saving the data](#saving-the-data)
+- [FAQ](#faq)
+- [Known issues](#known-issues)
+- [Command summary](#command-summary)
 
-Tasks are numbered in the order they appear in the list, starting at **1**.
-The first task is always task `1` (not task `0`). Use the number shown by
-`list` with `mark`, `unmark`, and `delete`.
+## Quick start
 
-## Adding tasks
+Ensure that Java 25 or later is installed on your computer.
 
-### Todo
+Download or clone the project, then open it in your Java IDE. Alternatively,
+run Sage with the project's Gradle run task.
 
-Use `todo` for a task without a date or time:
+Sage will start and wait for a command. Type a command and press Enter. For
+example, type `help` to display the available commands.
+
+Some example commands you can try:
 
 ```text
 todo return library books
+deadline submit assignment /by 25/12/2025 2359
+event team meeting /from 25/12/2025 1400 /to 25/12/2025 1530
+list
+mark 1
+bye
 ```
 
-### Deadline
+Refer to the [Features](#features) section below for details of each command.
 
-Use `deadline` followed by `/by` and a date or date and time. Sage accepts
-these formats:
+## Features
 
-- `d/M/yyyy`, such as `15/10/2019`
-- `yyyy-MM-dd`, such as `2019-10-15`
-- `d/M/yyyy HHmm`, such as `15/10/2019 1800`
-- `yyyy-MM-dd HHmm`, such as `2019-10-15 1800`
+### Notes about the command format
 
-Times use the 24-hour `HHmm` format. A date-only deadline is due at the end
-of that day:
+- Words in `UPPER_CASE` are parameters supplied by the user.
+- `DATE` can be written as `d/M/yyyy` or `yyyy-MM-dd`.
+- A date and time can be written as `d/M/yyyy HHmm` or `yyyy-MM-dd HHmm`.
+- `HHmm` uses the 24-hour format and cannot be entered without a date.
+- Task numbers are positive integers starting from `1`, referring to the order
+  shown by `list`.
+- Commands are case-sensitive and should be entered in lowercase.
+
+### Viewing help: `help`
+
+Shows a message explaining the available commands.
+
+**Format:** `help`
+
+### Adding a todo: `todo`
+
+Adds a task without a date or time.
+
+**Format:** `todo DESCRIPTION`
+
+**Example:** `todo return library books`
+
+### Adding a deadline: `deadline`
+
+Adds a task that must be completed by a specified date or date and time.
+
+**Format:** `deadline DESCRIPTION /by DATE [HHmm]`
+
+**Examples:**
 
 ```text
+deadline submit assignment /by 25/12/2025
 deadline submit assignment /by 25/12/2025 2359
 ```
 
-### Event
+A deadline must contain exactly one `/by` field. A date-only deadline is due at
+the end of that day.
 
-Use `event` with `/from` and `/to` date or date-time values. Sage accepts either
-of these formats:
+### Adding an event: `event`
 
-- Date only: `d/M/yyyy` (for example, `25/12/2025`)
-- Date and time: `d/M/yyyy HHmm` (for example, `25/12/2025 1530`)
+Adds a task that occurs between a start and an end date or date and time.
 
-The ISO equivalents `yyyy-MM-dd` and `yyyy-MM-dd HHmm` are also accepted.
-An Event cannot contain a time without a date.
+**Format:** `event DESCRIPTION /from DATE [HHmm] /to DATE [HHmm]`
 
-Date-only event boundaries cover the full day: a start date uses `0000` and an
-end date uses `2359`.
+**Example:** `event team meeting /from 25/12/2025 1400 /to 25/12/2025 1530`
 
-The end date and time must be later than the start date and time:
+An event must contain exactly one `/from` field and one `/to` field. The end
+must be later than the start. Date-only boundaries cover the full day.
 
-```text
-event team meeting /from 25/12/2025 1400 /to 25/12/2025 1530
-```
+### Listing all tasks: `list`
 
-Sage saves each successfully added task automatically. It rejects tasks with
-no description, invalid dates or times, duplicate details, or missing date-time
-fields. A deadline must contain exactly one `/by` field. An event must contain
-exactly one `/from` field and one `/to` field.
+Shows all tasks in their current order.
 
-## Viewing and finding tasks
+**Format:** `list`
 
-| Command | Description | Example |
+### Finding tasks: `find`
+
+Shows tasks whose descriptions contain the given keyword.
+
+**Format:** `find KEYWORD`
+
+The search is case-sensitive, so `find Books` and `find books` can return
+different results.
+
+### Finding tasks on a date: `on`
+
+Shows deadlines and events that occur on a specified date.
+
+**Format:** `on DATE`
+
+An event is shown for every date between its start and end dates, inclusive.
+
+### Finding duplicate tasks: `duplicates`
+
+Reports groups of duplicate tasks.
+
+**Format:** `duplicates`
+
+Duplicate detection ignores case and extra whitespace in descriptions. For
+deadlines and events, the date or time range must also match.
+
+### Marking a task as done: `mark`
+
+Marks the specified task as completed.
+
+**Format:** `mark TASK_NUMBER`
+
+**Example:** `mark 1`
+
+### Unmarking a task: `unmark`
+
+Changes a completed task back to not completed.
+
+**Format:** `unmark TASK_NUMBER`
+
+**Example:** `unmark 1`
+
+### Deleting a task: `delete`
+
+Permanently removes the specified task.
+
+**Format:** `delete TASK_NUMBER`
+
+**Example:** `delete 1`
+
+### Exiting the program: `bye`
+
+Exits Sage.
+
+**Format:** `bye`
+
+## Saving the data
+
+Sage automatically saves each successfully added, updated, or deleted task. You
+do not need to save manually.
+
+## FAQ
+
+**Q: How do I know which task number to use?**
+**A:** Enter `list` first and use the number shown beside the task.
+
+**Q: Can I use a time without a date?**
+**A:** No. A time must always be entered together with a date.
+
+**Q: Can I use `25-12-2025` as a date?**
+**A:** No. Use `25/12/2025` or `2025-12-25` instead.
+
+## Known issues
+
+- Commands are case-sensitive and must be typed in lowercase.
+- A deadline must contain exactly one `/by` field.
+- An event must contain exactly one `/from` field and one `/to` field.
+- Invalid dates, times, empty descriptions, and incomplete date-time fields are
+  rejected.
+
+## Command summary
+
+| Action | Format | Example |
 | --- | --- | --- |
-| `list` | Shows all tasks in their current order. | `list` |
-| `find KEYWORD` | Shows tasks whose descriptions contain `KEYWORD`. | `find books` |
-| `on DATE` | Shows deadlines and events on `DATE`. | `on 25/12/2025` |
-| `duplicates` | Reports groups of duplicate tasks. | `duplicates` |
-
-For `on`, use the date format `d/M/yyyy`. An event is shown for every date
-between its start and end dates, inclusive. The `find` keyword is case-sensitive,
-so `find Books` and `find books` can return different results.
-
-Duplicate detection ignores case and extra surrounding or repeated whitespace
-in descriptions. For deadlines and events, the date or time range must also
-match. Completion status does not affect whether tasks are duplicates. The
-`duplicates` command does not accept arguments.
-
-## Managing tasks
-
-First enter `list` to see the task numbers. Then use one of these commands,
-replacing `TASK_NUMBER` with a positive number such as `1`:
-
-| Command | What it does | Example |
-| --- | --- | --- |
-| `mark TASK_NUMBER` | Marks the task as done. | `mark 1` |
-| `unmark TASK_NUMBER` | Changes a completed task back to not done. | `unmark 1` |
-| `delete TASK_NUMBER` | Permanently removes the task. | `delete 1` |
-
-For example:
-
-```text
-list
-mark 1
-```
-
-Each command requires a valid positive task number from the current list.
-
-## Ending the session
-
-Enter `bye` when you are finished:
-
-```text
-bye
-```
-
-Sage says goodbye and closes the session. Tasks already saved remain available
-the next time you start Sage.
-
-## Quick reference
-
-```text
-todo DESCRIPTION
-deadline DESCRIPTION /by DATE
-deadline DESCRIPTION /by DATE HHmm
-event DESCRIPTION /from DATE /to DATE
-event DESCRIPTION /from DATE HHmm /to DATE HHmm
-list
-find KEYWORD
-on d/M/yyyy
-duplicates
-mark TASK_NUMBER
-unmark TASK_NUMBER
-delete TASK_NUMBER
-bye
-```
-
-For `DATE`, the accepted formats are:
-
-- Date only: `d/M/yyyy` (for example, `25/12/2025`)
-- Date only: `yyyy-MM-dd` (for example, `2025-12-25`)
-- Date and time: `d/M/yyyy HHmm` (for example, `25/12/2025 1530`)
-- Date and time: `yyyy-MM-dd HHmm` (for example, `2025-12-25 1530`)
-
-`HHmm` uses 24-hour time and cannot be entered without a date. The
-hyphenated day-first format `25-12-2025` is not accepted.
+| Add todo | `todo DESCRIPTION` | `todo return library books` |
+| Add deadline | `deadline DESCRIPTION /by DATE [HHmm]` | `deadline submit assignment /by 25/12/2025 2359` |
+| Add event | `event DESCRIPTION /from DATE [HHmm] /to DATE [HHmm]` | `event team meeting /from 25/12/2025 1400 /to 25/12/2025 1530` |
+| List | `list` | `list` |
+| Find | `find KEYWORD` | `find books` |
+| Find by date | `on DATE` | `on 25/12/2025` |
+| Find duplicates | `duplicates` | `duplicates` |
+| Mark done | `mark TASK_NUMBER` | `mark 1` |
+| Unmark | `unmark TASK_NUMBER` | `unmark 1` |
+| Delete | `delete TASK_NUMBER` | `delete 1` |
+| Help | `help` | `help` |
+| Exit | `bye` | `bye` |
