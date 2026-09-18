@@ -17,8 +17,28 @@ continue where you left off because your data is saved automatically.
 
 Ensure that Java 25 or later is installed on your computer.
 
-Download or clone the project, then open it in your Java IDE. Alternatively,
-run Sage with the project's Gradle run task.
+Download the latest `sage.jar` file from the [Sage Releases page](https://github.com/Sia-Pathania/ip/releases).
+
+Open a terminal or command prompt and change to the folder where you downloaded
+the JAR file.
+
+On macOS or Linux:
+
+```bash
+cd ~/Downloads
+java -jar sage.jar
+```
+
+On Windows PowerShell:
+
+```powershell
+cd $HOME\Downloads
+java -jar sage.jar
+```
+
+If the JAR file has a different name, replace `sage.jar` in the command with
+the actual filename. You can also run Sage from IntelliJ or with the project's
+Gradle run task.
 
 Sage will start and wait for a command. Type a command and press Enter.
 
