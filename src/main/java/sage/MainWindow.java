@@ -18,7 +18,14 @@ public class MainWindow {
     private final Image senderImage = loadImage("/images/sender.png");
     private final Image receiverImage = loadImage("/images/receiver.png");
 
-    /** Connects this controller to the Sage command processor. */
+    /** Creates the controller for Sage's main chat window. */
+    public MainWindow() {
+    }
+
+    /** Connects this controller to the Sage command processor.
+     *
+     * @param sage command processor used by the controller
+     */
     public void setSage(Sage sage) {
         this.sage = sage;
     }

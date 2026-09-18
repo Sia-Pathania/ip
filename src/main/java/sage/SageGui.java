@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 
 /** JavaFX frontend for Sage's command-processing service. */
 public class SageGui extends Application {
+    /** Creates the JavaFX frontend. */
+    public SageGui() {
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(SageGui.class.getResource("/view/MainWindow.fxml"));
