@@ -1,9 +1,5 @@
 # Sage User Guide
 
-[Sage](../README.md)
-[User Guide](README.md)
-[View on GitHub](https://github.com/)
-
 Sage is a friendly command-line task manager for todos, deadlines, and events.
 It helps you keep track of tasks, mark them as completed, search for them, and
 continue where you left off because your data is saved automatically.
@@ -24,8 +20,7 @@ Ensure that Java 25 or later is installed on your computer.
 Download or clone the project, then open it in your Java IDE. Alternatively,
 run Sage with the project's Gradle run task.
 
-Sage will start and wait for a command. Type a command and press Enter. For
-example, type `help` to display the available commands.
+Sage will start and wait for a command. Type a command and press Enter.
 
 Some example commands you can try:
 
@@ -51,12 +46,6 @@ Refer to the [Features](#features) section below for details of each command.
 - Task numbers are positive integers starting from `1`, referring to the order
   shown by `list`.
 - Commands are case-sensitive and should be entered in lowercase.
-
-### Viewing help: `help`
-
-Shows a message explaining the available commands.
-
-**Format:** `help`
 
 ### Adding a todo: `todo`
 
@@ -193,5 +182,4 @@ do not need to save manually.
 | Mark done | `mark TASK_NUMBER` | `mark 1` |
 | Unmark | `unmark TASK_NUMBER` | `unmark 1` |
 | Delete | `delete TASK_NUMBER` | `delete 1` |
-| Help | `help` | `help` |
 | Exit | `bye` | `bye` |
