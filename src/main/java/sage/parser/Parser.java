@@ -38,6 +38,10 @@ public class Parser {
     private static final DateTimeFormatter ISO_DATE_FORMATTER =
             DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
 
+    /** Creates a parser for Sage commands and date values. */
+    public Parser() {
+    }
+
     /** Creates the command object corresponding to the user's input.
      *
      * @param command complete user input
