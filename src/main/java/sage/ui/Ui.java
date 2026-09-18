@@ -24,7 +24,10 @@ public class Ui implements AutoCloseable {
         output = System.out::println;
     }
 
-    /** Creates a UI that sends displayed messages to the supplied consumer. */
+    /** Creates a UI that sends displayed messages to the supplied consumer.
+     *
+     * @param output consumer that receives displayed messages
+     */
     public Ui(Consumer<String> output) {
         scanner = new Scanner(System.in);
         this.output = output;
@@ -46,12 +49,18 @@ public class Ui implements AutoCloseable {
         show(DIVIDER);
     }
 
-    /** Displays one line of text to the user. */
+    /** Displays one line of text to the user.
+     *
+     * @param message message to display
+     */
     public void show(String message) {
         output.accept(message);
     }
 
-    /** Returns the next command, or {@code null} when input has ended. */
+    /** Returns the next command, or {@code null} when input has ended.
+     *
+     * @return next command, or {@code null} at end of input
+     */
     public String readCommand() {
         return scanner.hasNextLine() ? scanner.nextLine() : null;
     }

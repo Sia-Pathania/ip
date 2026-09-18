@@ -39,7 +39,12 @@ public class DialogBox extends HBox {
         displayPicture.setImage(image);
     }
 
-    /** Creates a sender message aligned to the right. */
+    /** Creates a sender message aligned to the right.
+     *
+     * @param text message text
+     * @param image sender avatar image
+     * @return right-aligned sender message
+     */
     public static DialogBox getSenderDialog(String text, Image image) {
         DialogBox box = new DialogBox(text, image);
         box.dialog.setStyle(SENDER_BUBBLE_STYLE);
@@ -47,7 +52,12 @@ public class DialogBox extends HBox {
         return box;
     }
 
-    /** Creates a receiver message aligned to the left. */
+    /** Creates a receiver message aligned to the left.
+     *
+     * @param text message text
+     * @param image receiver avatar image
+     * @return left-aligned receiver message
+     */
     public static DialogBox getReceiverDialog(String text, Image image) {
         DialogBox box = new DialogBox(text, image);
         ObservableList<Node> children = FXCollections.observableArrayList(box.getChildren());
