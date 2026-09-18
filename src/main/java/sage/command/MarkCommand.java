@@ -13,7 +13,11 @@ import sage.ui.Ui;
 public class MarkCommand extends Command {
     private final String input;
 
-    /** Creates a mark command from the raw command input. */
+    /**
+     * Creates a mark command from the raw command input.
+     *
+     * @param input raw mark command input
+     */
     public MarkCommand(String input) {
         this.input = input;
     }

@@ -13,7 +13,11 @@ import sage.ui.Ui;
 public class UnmarkCommand extends Command {
     private final String input;
 
-    /** Creates an unmark command from the raw command input. */
+    /**
+     * Creates an unmark command from the raw command input.
+     *
+     * @param input raw unmark command input
+     */
     public UnmarkCommand(String input) {
         this.input = input;
     }

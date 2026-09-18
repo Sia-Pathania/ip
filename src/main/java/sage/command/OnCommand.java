@@ -16,7 +16,11 @@ import sage.ui.Ui;
 public class OnCommand extends Command {
     private final String dateInput;
 
-    /** Creates a date query command. */
+    /**
+     * Creates a date query command.
+     *
+     * @param dateInput date supplied to the command
+     */
     public OnCommand(String dateInput) {
         this.dateInput = dateInput;
     }
