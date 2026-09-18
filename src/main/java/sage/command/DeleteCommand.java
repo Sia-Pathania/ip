@@ -13,7 +13,11 @@ import sage.ui.Ui;
 public class DeleteCommand extends Command {
     private final String input;
 
-    /** Creates a delete command from the raw command input. */
+    /**
+     * Creates a delete command from the raw command input.
+     *
+     * @param input raw delete command input
+     */
     public DeleteCommand(String input) {
         this.input = input;
     }

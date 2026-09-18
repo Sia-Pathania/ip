@@ -18,7 +18,11 @@ import sage.ui.Ui;
 public class DuplicatesCommand extends Command {
     private final String arguments;
 
-    /** Creates a duplicates command with the supplied arguments. */
+    /**
+     * Creates a duplicates command with the supplied arguments.
+     *
+     * @param arguments arguments supplied after the command name
+     */
     public DuplicatesCommand(String arguments) {
         this.arguments = arguments;
     }

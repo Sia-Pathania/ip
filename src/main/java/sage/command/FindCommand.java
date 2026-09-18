@@ -12,7 +12,11 @@ import sage.ui.Ui;
 public class FindCommand extends Command {
     private final String keyword;
 
-    /** Creates a find command for the supplied keyword. */
+    /**
+     * Creates a find command for the supplied keyword.
+     *
+     * @param keyword keyword to search for
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
