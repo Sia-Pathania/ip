@@ -8,6 +8,10 @@ import sage.ui.Ui;
 
 /** Command that ends the Sage session. */
 public class ExitCommand extends Command {
+    /** Creates an exit command. */
+    public ExitCommand() {
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         ui.show("Bye. Hope to see you again soon!");
