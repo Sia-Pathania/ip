@@ -223,17 +223,17 @@ public class Parser {
         int byIndex = details.indexOf(" /" + BY_COMMAND + " ");
         if (byIndex == -1) {
             throw new SageException(
-                    "Your deadline is missing a /by date or time. Could you try again?");
+                    "Your deadline is missing a /by date. Could you try again?");
         }
         String description = details.substring(0, byIndex);
         validateDescription(description);
         String by = details.substring(byIndex + BY_COMMAND.length() + 3);
         if (details.indexOf(" /" + BY_COMMAND + " ", byIndex + 1) != -1) {
-            throw new SageException("A deadline can only have one /by date or time.");
+            throw new SageException("A deadline can only have one /by date or date-time.");
         }
         if (by.isBlank()) {
             throw new SageException(
-                    "Your deadline needs a date or time after /by. Could you try again?");
+                    "Your deadline needs a date after /by, with an optional time. Could you try again?");
         }
         return new String[] {description, by};
     }
