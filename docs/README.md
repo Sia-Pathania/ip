@@ -1,5 +1,7 @@
 # Sage User Guide
 
+![Sage graphical interface](Ui.png)
+
 Sage is a friendly command-line task manager for todos, deadlines, and events.
 It helps you keep track of tasks, mark them as completed, search for them, and
 continue where you left off because your data is saved automatically.
